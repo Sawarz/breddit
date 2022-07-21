@@ -1,6 +1,6 @@
 .postCreator{
     width: 50vw;
-    padding: 5px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -14,13 +14,35 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    gap: 10px;
 }
 
 .postElement{
-    flex-grow: 1;
+    cursor: pointer;
+    font-size: 1.2rem;
+    flex: 1 1 0px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 1px solid rgb(212, 212, 212);
+}
+
+.postElement:hover{
+    background-color: rgb(255, 229, 173);
 }
 
 .title{
     font-size: 1.5rem;
     font-weight: 600;
+}
+
+.previewText{
+    padding: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background-color: rgb(173, 253, 226);
 }
