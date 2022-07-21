@@ -46,6 +46,7 @@ export default function Dropdown({ label, options, chooseCommunity }: props) {
             setShowOptions(true);
           }}
           onChange={(e) => {
+            setShowOptions(true);
             setSearchText(e.target.value)
           }}
           onFocus={(e) => {
