@@ -10,14 +10,16 @@ import Poll from './tabs/Poll';
 
 export type Post = {
   text: undefined | string,
-  image: undefined | File
+  image: undefined | File,
+  link: undefined | string
 }
 
 export default function PostCreator() {
   const [community, setCommunity] = useState("");
   const [post, setPost] = useState<Post>({
     text: undefined,
-    image: undefined
+    image: undefined,
+    link: undefined
   })
   const [currentTab, setCurrentTab] = useState(<Text setPost={setPost} post={post}/>)
 
@@ -72,9 +74,12 @@ export default function PostCreator() {
         </button>
       </div>
       {currentTab}
+      <hr/>
       <div>Post preview:</div>
+      <div className={styles.previewCommunity}>Posting to: {community}</div>
       <div className={styles.previewText}>{post.text}</div>
       <div>{renderPostImage(post.image)}</div>
+      <a className={styles.previewLink} href={post.link}>{post.link}</a>
     </div>
   )
 }
