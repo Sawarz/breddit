@@ -15,7 +15,8 @@ export default function Image({setPost, post}: Props) {
         if(e.target.files != null){
             setPost({
                 text: post.text,
-                image: e.target.files[0] as File
+                image: e.target.files[0] as File,
+                link: post.link
             })
         }
     }}
