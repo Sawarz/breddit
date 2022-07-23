@@ -82,15 +82,20 @@ export default function PostCreator() {
       </div>
       {currentTab}
       <hr/>
-      <div>Post preview:</div>
-      <div className={styles.previewCommunity}>Posting to: {community}</div>
+      <div className={styles.previewTitle}>Post preview:</div>
+      <div className={styles.previewSubtitle}>Posting to: {community}</div>
+      <div className={styles.previewSubtitle}>Text: </div>
       <div className={styles.previewText}>{post.text}</div>
       <div>{renderPostImage(post.image)}</div>
+      <hr></hr>
+      <div className={styles.previewSubtitle}>Link: </div>
       <a className={styles.previewLink} href={post.link}>{post.link}</a>
+      <hr></hr>
+      <div className={styles.previewSubtitle}>Poll: </div>
       <div className={styles.previewPoll}>
-        <div>{post.poll?.title}</div>
-        <div>{post.poll?.options?.map((option)=>{
-          return(<div>{option}</div>)
+        <div className={styles.pollTitle}>{post.poll?.title}</div>
+        <div className={styles.pollOptions}>{post.poll?.options?.map((option)=>{
+          return(<div>{option}</div>) 
         })}</div>
       </div>
     </div>
