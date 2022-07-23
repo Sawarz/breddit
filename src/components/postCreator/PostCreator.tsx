@@ -1,4 +1,4 @@
-import { ReactComponentElement, useState } from 'react'
+import { useState } from 'react'
 import styles from './styles.module.css'
 import Dropdown from '../multiple-use/dropdown/Dropdown'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,10 +8,16 @@ import Image from './tabs/Image';
 import Link from './tabs/Link';
 import Poll from './tabs/Poll';
 
+export type poll = {
+  title: undefined | string,
+  options: undefined | Array<string>
+}
+
 export type Post = {
   text: undefined | string,
   image: undefined | File,
-  link: undefined | string
+  link: undefined | string,
+  poll: undefined | poll
 }
 
 export default function PostCreator() {
@@ -19,7 +25,8 @@ export default function PostCreator() {
   const [post, setPost] = useState<Post>({
     text: undefined,
     image: undefined,
-    link: undefined
+    link: undefined,
+    poll: undefined
   })
   const [currentTab, setCurrentTab] = useState(<Text setPost={setPost} post={post}/>)
 
@@ -33,7 +40,7 @@ export default function PostCreator() {
   }
 
   function renderPostImage(image: Post["image"]){
-    if(image != undefined){
+    if(image !== undefined){
       return(<img src={URL.createObjectURL(image as File)}></img>)
     }
     return(<></>)
@@ -80,6 +87,12 @@ export default function PostCreator() {
       <div className={styles.previewText}>{post.text}</div>
       <div>{renderPostImage(post.image)}</div>
       <a className={styles.previewLink} href={post.link}>{post.link}</a>
+      <div className={styles.previewPoll}>
+        <div>{post.poll?.title}</div>
+        <div>{post.poll?.options?.map((option)=>{
+          return(<div>{option}</div>)
+        })}</div>
+      </div>
     </div>
   )
 }

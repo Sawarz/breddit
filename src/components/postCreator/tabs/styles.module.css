@@ -1,0 +1,10 @@
+.poll{
+    display: flex;
+    flex-direction: column;
+}
+
+.pollCreator{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
