@@ -14,14 +14,16 @@ export default function Link({setPost, post}: Props) {
         setPost({
             text: post.text,
             image: post.image,
-            link: e.target.value
+            link: e.target.value,
+            poll: post.poll
         })
       }
       else{
         setPost({
           text: post.text,
           image: post.image,
-          link: "//" + e.target.value
+          link: "//" + e.target.value,
+          poll: post.poll
       })
       }
   }}>{post.text}</textarea>

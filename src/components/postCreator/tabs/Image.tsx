@@ -16,7 +16,8 @@ export default function Image({setPost, post}: Props) {
             setPost({
                 text: post.text,
                 image: e.target.files[0] as File,
-                link: post.link
+                link: post.link,
+                poll: post.poll
             })
         }
     }}

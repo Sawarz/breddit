@@ -12,7 +12,8 @@ export default function Text({setPost, post}: Props) {
         setPost({
             text: e.target.value,
             image: post.image,
-            link: post.link
+            link: post.link,
+            poll: post.poll
         })
     }}>{post.text}</textarea>
   )
