@@ -12,18 +12,14 @@ export default function Link({setPost, post}: Props) {
     <textarea onChange={(e)=>{
       if(e.target.value.includes("http") || e.target.value.includes("https")){
         setPost({
-            text: post.text,
-            image: post.image,
+          ...post,
             link: e.target.value,
-            poll: post.poll
         })
       }
       else{
         setPost({
-          text: post.text,
-          image: post.image,
+          ...post,
           link: "//" + e.target.value,
-          poll: post.poll
       })
       }
   }}>{post.text}</textarea>

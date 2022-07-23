@@ -10,10 +10,8 @@ export default function Text({setPost, post}: Props) {
   return (
     <textarea onChange={(e)=>{
         setPost({
+          ...post,
             text: e.target.value,
-            image: post.image,
-            link: post.link,
-            poll: post.poll
         })
     }}>{post.text}</textarea>
   )
