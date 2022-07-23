@@ -7,26 +7,27 @@ import Text from './tabs/Text';
 import Image from './tabs/Image';
 import Link from './tabs/Link';
 import Poll from './tabs/Poll';
-
-export type poll = {
-  title: undefined | string,
-  options: undefined | Array<string>
-}
+import Firebase from '../../firebase/Firebase';
+import { uuidv4 } from '@firebase/util';
 
 export type Post = {
+  id: string,
   text: undefined | string,
-  image: undefined | File,
+  image: undefined | string,
   link: undefined | string,
-  poll: undefined | poll
+  pollTitle: undefined | string,
+  pollOptions: undefined | Array<string>
 }
 
 export default function PostCreator() {
   const [community, setCommunity] = useState("");
   const [post, setPost] = useState<Post>({
+    id: uuidv4(),
     text: undefined,
     image: undefined,
     link: undefined,
-    poll: undefined
+    pollTitle: undefined,
+    pollOptions: undefined
   })
   const [currentTab, setCurrentTab] = useState(<Text setPost={setPost} post={post}/>)
 
@@ -41,7 +42,7 @@ export default function PostCreator() {
 
   function renderPostImage(image: Post["image"]){
     if(image !== undefined){
-      return(<img src={URL.createObjectURL(image as File)}></img>)
+      return(<img src={post.image}></img>)
     }
     return(<></>)
   }
@@ -93,11 +94,14 @@ export default function PostCreator() {
       <hr></hr>
       <div className={styles.previewSubtitle}>Poll: </div>
       <div className={styles.previewPoll}>
-        <div className={styles.pollTitle}>{post.poll?.title}</div>
-        <div className={styles.pollOptions}>{post.poll?.options?.map((option)=>{
+        <div className={styles.pollTitle}>{post.pollTitle}</div>
+        <div className={styles.pollOptions}>{post.pollOptions?.map((option)=>{
           return(<div>{option}</div>) 
         })}</div>
       </div>
+      <button onClick={()=>{
+        Firebase.addPost(post);
+      }}>Post</button>
     </div>
   )
 }
