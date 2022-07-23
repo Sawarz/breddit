@@ -13,11 +13,10 @@ export default function Image({setPost, post}: Props) {
     type="file"
     onChange={(e)=>{
         if(e.target.files != null){
+          let imageString = URL.createObjectURL(e.target.files[0] as File)
             setPost({
-                text: post.text,
-                image: e.target.files[0] as File,
-                link: post.link,
-                poll: post.poll
+              ...post,
+                image: imageString,
             })
         }
     }}
