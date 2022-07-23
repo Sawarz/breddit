@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import styles from './styles.module.css'
-import { Post, poll } from '../PostCreator'
+import { Post } from '../PostCreator'
 
 type Props = {
     setPost: React.Dispatch<React.SetStateAction<Post>>
@@ -9,23 +9,18 @@ type Props = {
 
 export default function Poll({setPost, post}: Props) {
   const [createPoll, setCreatePoll] = useState<boolean>(false)
-  const [poll, setPoll] = useState<poll>({
-    title: undefined,
-    options: undefined
-  })
-  const [options, setOptions] = useState<string[]>()
+  const [title, setTitle] = useState<string>()
+  const [options, setOptions] = useState<string[]>();
 
   useEffect(() => {
     setPost({
+      ...post,
       text: post.text,
       image: post.image,
       link: post.link,
-      poll: poll
+      pollTitle: title,
+      pollOptions: options
     })
-  }, [poll])
-
-  useEffect(() => {
-    setPoll({...poll, options: options})
   }, [options])
   
 
@@ -43,7 +38,7 @@ export default function Poll({setPost, post}: Props) {
         type="text"
         placeholder="Poll title"
         onChange={(e)=>{
-          setPoll({...poll, title: e.target.value})
+          setTitle(e.target.value)
         }}
         ></input>
         <div>Options: </div>
