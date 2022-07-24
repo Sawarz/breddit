@@ -26,3 +26,7 @@ code {
   padding-top: 100px;
   background-image: url("./assets/background/background.jpg");
 }
+
+textarea{
+  resize: none;
+}
