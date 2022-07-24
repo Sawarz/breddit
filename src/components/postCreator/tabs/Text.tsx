@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './styles.module.css'
 import { Post } from '../PostCreator'
 
 type Props = {
@@ -8,7 +9,8 @@ type Props = {
 
 export default function Text({setPost, post}: Props) {
   return (
-    <textarea onChange={(e)=>{
+    <textarea className={styles.textCreator}
+      onChange={(e) => {
         setPost({
           ...post,
             text: e.target.value,

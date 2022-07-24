@@ -8,3 +8,7 @@
     flex-direction: column;
     gap: 10px;
 }
+
+.textCreator{
+    min-height: 200px;
+}
