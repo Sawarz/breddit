@@ -99,7 +99,7 @@ export default function PostCreator() {
           return(<div>{option}</div>) 
         })}</div>
       </div>
-      <button onClick={()=>{
+      <button className={styles.postButton} onClick={()=>{
         Firebase.addPost(post);
       }}>Post</button>
     </div>

@@ -68,3 +68,13 @@
 .previewImage{
     width: 100%;
 }
+
+.postButton{
+    padding: 10px 40px;
+    font-size: 2rem;
+    align-self: center;
+    cursor: pointer;
+    background-color: rgb(255, 229, 173);
+    border: none;
+    box-shadow: 0 1px 5px 0 rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);
+}
