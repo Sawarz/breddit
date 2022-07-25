@@ -42,7 +42,7 @@ export default function PostCreator() {
 
   function renderPostImage(image: Post["image"]){
     if(image !== undefined){
-      return(<img src={URL.createObjectURL(image)}></img>)
+      return(<img src={URL.createObjectURL(image)} className={styles.previewImage}></img>)
     }
     return(<></>)
   }
