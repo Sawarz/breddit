@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { doc, setDoc } from "firebase/firestore"; 
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { Post } from '../components/postCreator/PostCreator';
 
 const firebaseConfig = {
@@ -26,9 +27,20 @@ async function getPosts() {
 
 
 async function addPost(post: Post) {
-    const result = await setDoc(doc(db, "posts", post.id), post);
-    console.log(getPosts())
+  const postToBeSend = (({ image, ...o }) => o)(post)
+  const result = await setDoc(doc(db, "posts", post.id), postToBeSend);
+  if(post.image != undefined)
+    storeImage(post.image, post)
+  console.log(getPosts())
 }
+
+async function storeImage(image: File, post: Post) {
+  const folderRef = ref(storage, `postsImages/${post.id}`)
+  uploadBytes(folderRef, image).then((snapshot) => {
+    console.log('Uploaded a blob or file!');
+  });
+}
+const storage = getStorage();
 
 
 const Firebase = {

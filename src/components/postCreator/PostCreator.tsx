@@ -13,7 +13,7 @@ import { uuidv4 } from '@firebase/util';
 export type Post = {
   id: string,
   text: undefined | string,
-  image: undefined | string,
+  image: undefined | File,
   link: undefined | string,
   pollTitle: undefined | string,
   pollOptions: undefined | Array<string>
@@ -42,7 +42,7 @@ export default function PostCreator() {
 
   function renderPostImage(image: Post["image"]){
     if(image !== undefined){
-      return(<img src={post.image}></img>)
+      return(<img src={URL.createObjectURL(image)}></img>)
     }
     return(<></>)
   }
