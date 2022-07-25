@@ -34,13 +34,14 @@ async function addPost(post: Post) {
   console.log(getPosts())
 }
 
+const storage = getStorage();
+
 async function storeImage(image: File, post: Post) {
   const folderRef = ref(storage, `postsImages/${post.id}`)
   uploadBytes(folderRef, image).then((snapshot) => {
     console.log('Uploaded a blob or file!');
   });
 }
-const storage = getStorage();
 
 
 const Firebase = {
