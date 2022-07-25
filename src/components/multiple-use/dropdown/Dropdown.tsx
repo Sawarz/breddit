@@ -59,11 +59,11 @@ export default function Dropdown({ label, options, chooseCommunity }: props) {
             {options.map((option: string, i) => {
               if (option.toLowerCase().includes(searchText)) {
                 return (
-                  <div key={i} className={styles.option} onClick={() => {
+                  <button key={i} className={styles.option} onClick={() => {
                     chooseCommunity(option);
                     setCommunity(option);
                     setShowOptions(false);
-                  }}>{option}</div>
+                  }}>{option}</button>
                 )
               }
               return null;
