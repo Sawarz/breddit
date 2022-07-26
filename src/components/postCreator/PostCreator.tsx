@@ -32,6 +32,7 @@ export default function PostCreator() {
   const [currentTab, setCurrentTab] = useState(<Text setPost={setPost} post={post}/>)
 
   let options = [
+    "Create new community",
     "Rye",
     "Wholemeal"
   ];
