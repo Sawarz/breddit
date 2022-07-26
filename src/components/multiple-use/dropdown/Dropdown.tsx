@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
+import Firebase from '../../../firebase/Firebase';
 import styles from './styles.module.css'
+import Modal from '../modal/Modal'
 
 type props = {
     label: string,
@@ -10,7 +12,8 @@ type props = {
 export default function Dropdown({ label, options, chooseCommunity }: props) {
   const [showOptions, _setShowOptions] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [community, setCommunity] = useState("")
+  const [community, setCommunity] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const dropdown = useRef<HTMLDivElement>(null);
   const stateRef = useRef<boolean>(showOptions);
@@ -27,6 +30,10 @@ export default function Dropdown({ label, options, chooseCommunity }: props) {
         setShowOptions(false)
       }
     }
+  }
+
+  function toggleModal() {
+    setModalOpen(!modalOpen);
   }
   
   useEffect(() => {
@@ -60,9 +67,15 @@ export default function Dropdown({ label, options, chooseCommunity }: props) {
               if (option.toLowerCase().includes(searchText)) {
                 return (
                   <button key={i} className={styles.option} onClick={() => {
-                    chooseCommunity(option);
-                    setCommunity(option);
-                    setShowOptions(false);
+                    if (option != "Create new community") {
+                      chooseCommunity(option);
+                      setCommunity(option);
+                      setShowOptions(false);
+                    }
+                    else {
+                      setModalOpen(true);
+                      setShowOptions(false);
+                    }
                   }}>{option}</button>
                 )
               }
@@ -70,8 +83,9 @@ export default function Dropdown({ label, options, chooseCommunity }: props) {
             })}
               </div>
             :
-            <div></div>
-          }
+            null
+        }
+        {modalOpen ? <Modal toggleModal={toggleModal}/> : null}
       </div>
       )
 }
