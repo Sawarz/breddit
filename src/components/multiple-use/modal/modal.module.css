@@ -1,0 +1,47 @@
+.modal{
+    z-index: 1000;
+    position: fixed;
+    left: 0px;
+    top: 0;
+    width: 100vw;
+    height: 100%;
+    background-color: rgba(169, 169, 169, 0.411);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalWindow{
+    min-width: 50vw;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 1.5rem;
+    padding: 10px;
+    border: 2px solid black;
+    background-color: white;
+}
+
+.buttons{
+    display: flex;
+    gap: 50px;
+}
+
+.createButton, .closeButton{
+    height: 40px;
+    width: 120px;
+    text-align: center;
+    align-self: center;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 5px 0 rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);
+    font-weight: 600;
+}
+
+.createButton{
+    background-color: rgba(27, 197, 27, 0.726);
+}
+
+.closeButton{
+    background-color: rgba(253, 66, 66, 0.726);
+}
