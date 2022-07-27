@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './styles.module.css'
 import Dropdown from '../multiple-use/dropdown/Dropdown'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,13 +29,21 @@ export default function PostCreator() {
     pollTitle: undefined,
     pollOptions: undefined
   })
-  const [currentTab, setCurrentTab] = useState(<Text setPost={setPost} post={post}/>)
+  const [currentTab, setCurrentTab] = useState(<Text setPost={setPost} post={post} />)
+  const [communities, setCommunities] = useState(["Create new community"])
 
-  let options = [
-    "Create new community",
-    "Rye",
-    "Wholemeal"
-  ];
+  useEffect(() => {
+    async function fetchCommunitiesFromDB() {
+      const communitiesFromDB = await Firebase.getCommunities();
+      const newCommunities = [...communities];
+      communitiesFromDB.forEach((community) => {
+        newCommunities.push(community.name)
+      })
+      setCommunities(newCommunities);
+    } 
+    fetchCommunitiesFromDB();
+  }, [])
+  
 
   function chooseCommunity(community: string) {
     setCommunity(community);
@@ -53,7 +61,7 @@ export default function PostCreator() {
       <div className={styles.title}>Create a post!</div>
       <Dropdown
         label={"Choose a community"}
-        options={options}
+        options={communities}
         chooseCommunity={chooseCommunity}
       />
       <div className={styles.postElements}>
