@@ -22,6 +22,6 @@ export default function Link({setPost, post}: Props) {
           link: "//" + e.target.value,
       })
       }
-  }}>{post.text}</textarea>
+  }}>{post.link}</textarea>
   )
 }
