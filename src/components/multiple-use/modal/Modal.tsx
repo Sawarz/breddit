@@ -13,10 +13,11 @@ export default function Modal({ toggleModal }: Props) {
 
   async function validateCommunity(communityInput: string) {
     const communities = await Firebase.getCommunities();
-    communities.forEach((community) => {
-      if (community.name === communityInput) {
+    communities.some((community) => {
+      if (community.name.toLowerCase() === communityInput.toLowerCase()) {
         setValidationMessage("Community with this name already exists!");
         setValidation(false);
+        return true;
       }
       else {
         setValidationMessage("Community can be created!");
