@@ -12,6 +12,7 @@ import { uuidv4 } from '@firebase/util';
 
 export type Post = {
   id: string,
+  title: undefined | string,
   text: undefined | string,
   image: undefined | File,
   link: undefined | string,
@@ -23,6 +24,7 @@ export default function PostCreator() {
   const [community, setCommunity] = useState("");
   const [post, setPost] = useState<Post>({
     id: uuidv4(),
+    title: undefined,
     text: undefined,
     image: undefined,
     link: undefined,
