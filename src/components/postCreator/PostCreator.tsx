@@ -14,10 +14,10 @@ export type Post = {
   id: string,
   title: undefined | string,
   text: undefined | string,
-  image: undefined | File,
-  link: undefined | string,
-  pollTitle: undefined | string,
-  pollOptions: undefined | Array<string>
+  image?: undefined | File,
+  link?: undefined | string,
+  pollTitle?: undefined | string,
+  pollOptions?: undefined | Array<string>
 }
 
 export default function PostCreator() {
@@ -96,6 +96,8 @@ export default function PostCreator() {
       <hr/>
       <div className={styles.previewTitle}>Post preview:</div>
       <div className={styles.previewSubtitle}>Posting to: {community}</div>
+      <div className={styles.previewSubtitle}>Title: </div>
+      <div className={styles.previewText}>{post.title}</div>
       <div className={styles.previewSubtitle}>Text: </div>
       <div className={styles.previewText}>{post.text}</div>
       <div>{renderPostImage(post.image)}</div>
