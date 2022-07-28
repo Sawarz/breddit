@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { doc, setDoc } from "firebase/firestore"; 
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Post } from '../components/postCreator/PostCreator';
 import { uuidv4 } from '@firebase/util';
 
@@ -30,17 +30,18 @@ async function getCommunities() {
   const communitiesCol = collection(db, 'communities');
   const communitiesSnapshot = await getDocs(communitiesCol);
   const communitiesList = communitiesSnapshot.docs.map(doc => doc.data());
-  console.log(communitiesList)
   return communitiesList;
 }
 
 
 async function addPost(post: Post) {
+  let imageURL;
   const postToBeSend = (({ image, ...o }) => o)(post)
-  const result = await setDoc(doc(db, "posts", post.id), postToBeSend);
-  if(post.image != undefined)
-    storeImage(post.image, post)
-  console.log(getPosts())
+  if (post.image != undefined) {
+    await storeImage(post.image, post)
+    imageURL =  await getImage(post);
+  } 
+  const result = await setDoc(doc(db, "posts", post.id), postToBeSend); 
 }
 
 const storage = getStorage();
@@ -48,13 +49,20 @@ const storage = getStorage();
 async function storeImage(image: File, post: Post) {
   const folderRef = ref(storage, `postsImages/${post.id}`)
   uploadBytes(folderRef, image).then((snapshot) => {
-    console.log('Uploaded a blob or file!');
+    console.log('Uploaded a file!');
   });
+}
+
+async function getImage(post: Post) {
+  let url = getDownloadURL(ref(storage, `postsImages/${post.id}`))
+    .then((downloadedURL: string) => {
+      return downloadedURL;
+  })
+  return url;
 }
 
 async function createNewCommunity(name: string) {
   const result = await setDoc(doc(db, "communities", uuidv4()), {name: name});
-  console.log(getCommunities())
 }
 
 
@@ -62,7 +70,8 @@ const Firebase = {
   getPosts: getPosts,
   getCommunities: getCommunities,
   addPost: addPost,
-  createNewCommunity: createNewCommunity
+  createNewCommunity: createNewCommunity,
+  getImage: getImage
 }
 
 export default Firebase;
