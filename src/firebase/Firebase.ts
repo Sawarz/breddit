@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc, getDoc } from "firebase/firestore"; 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Post } from '../components/postCreator/PostCreator';
 import { uuidv4 } from '@firebase/util';
@@ -22,8 +22,15 @@ async function getPosts() {
   const postsCol = collection(db, 'posts');
   const postsSnapshot = await getDocs(postsCol);
   const postList = postsSnapshot.docs.map(doc => doc.data());
-  console.log(postList)
   return postList;
+}
+
+async function getPost(postID: string) {
+  const docRef = doc(db, "posts", postID);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return docSnap.data();
+  }
 }
 
 async function getCommunities() {
@@ -68,6 +75,7 @@ async function createNewCommunity(name: string) {
 
 const Firebase = {
   getPosts: getPosts,
+  getPost: getPost,
   getCommunities: getCommunities,
   addPost: addPost,
   createNewCommunity: createNewCommunity,
