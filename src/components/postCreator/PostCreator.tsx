@@ -18,6 +18,7 @@ export type Post = {
   link?: undefined | string,
   pollTitle?: undefined | string,
   pollOptions?: undefined | Array<string>
+  likes?: undefined | number
 }
 
 export default function PostCreator() {
@@ -29,7 +30,8 @@ export default function PostCreator() {
     image: undefined,
     link: undefined,
     pollTitle: undefined,
-    pollOptions: undefined
+    pollOptions: undefined,
+    likes: undefined
   })
   const [currentTab, setCurrentTab] = useState(<Text setPost={setPost} post={post} />)
   const [communities, setCommunities] = useState(["Create new community"])
