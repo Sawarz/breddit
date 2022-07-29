@@ -11,7 +11,7 @@ import Firebase from '../../firebase/Firebase';
 import { uuidv4 } from '@firebase/util';
 
 export type Post = {
-  id: string,
+  id: undefined | string,
   title: undefined | string,
   text: undefined | string,
   image?: undefined | File,
