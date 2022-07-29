@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import Firebase from '../../../firebase/Firebase';
-import styles from './styles.module.css'
+import styles from './dropdown.module.css'
 import Modal from '../modal/Modal'
 
 type props = {
