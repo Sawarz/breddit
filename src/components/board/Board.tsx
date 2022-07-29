@@ -25,7 +25,6 @@ export default function Board() {
         }));
       }
       getImageData().then(() => {
-        console.log(newImages);
         setImages(newImages)
       });
     }
@@ -33,7 +32,6 @@ export default function Board() {
   }, [])
 
   useEffect(() => {
-    console.log(images);
     setRenderPosts(true);
   }, [images])
   
@@ -52,11 +50,11 @@ export default function Board() {
                 let image = images.find(image => image.postID === post.id)
                 if(image != undefined)
                 return (<>
-                  <div className={styles.post}>
+                  <Link to={`/posts/${post.id}`} className={styles.post}>
                     <div className={styles.postTitle}>{post.title}</div>
                     <div className={styles.postText}>{post.text}</div>
                     <img className={styles.postImage} src={image.url}></img>
-                  </div>
+                  </Link>
                   <hr></hr>
                   </>)
               }
