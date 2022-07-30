@@ -68,6 +68,10 @@
     gap: 10px;
 }
 
+.post > *{
+    word-break: break-all;
+}
+
 .postImage{
     width: 100%;
 }
