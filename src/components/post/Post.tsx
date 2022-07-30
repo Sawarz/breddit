@@ -10,11 +10,7 @@ export default function Post() {
             id: undefined,
             title: undefined,
             text: undefined,
-            image: undefined,
-            link: undefined,
-            pollTitle: undefined,
-            pollOptions: undefined,
-            likes: undefined
+            community: undefined
         }
     );
     const [imageURL, setImageURL] = useState<string>();
