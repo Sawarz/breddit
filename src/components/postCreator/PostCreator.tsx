@@ -31,7 +31,7 @@ export default function PostCreator() {
     link: undefined,
     pollTitle: undefined,
     pollOptions: undefined,
-    likes: undefined
+    likes: 0
   })
   const [currentTab, setCurrentTab] = useState(<Text setPost={setPost} post={post} />)
   const [communities, setCommunities] = useState(["Create new community"])
