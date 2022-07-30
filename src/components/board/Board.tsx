@@ -6,18 +6,17 @@ import { Post } from '../postCreator/PostCreator';
 
 export default function Board() {
   const [posts, setPosts] = useState<Post[]>();
-  const [images, setImages] = useState<{ postID: string, url: string }[]>()
+  const [images, setImages] = useState<{ postID: undefined | string, url: string }[]>()
   const [renderPosts, setRenderPosts] = useState<boolean>(false)
 
   useEffect(() => {
     async function fetchPostsFromDB() {
       const postsFromDB = await Firebase.getPosts() as Array<Post>;
       setPosts(postsFromDB);
-      let newImages: { postID: string, url: string }[] = [];
+      let newImages: { postID: undefined | string, url: string }[] = [];
       async function getImageData () {
         await Promise.all(postsFromDB.map(async (post) => {
           const imageURL = await Firebase.getImage(post);
-          console.log(imageURL);
           newImages.push({
             postID: post.id,
             url: imageURL
@@ -52,7 +51,6 @@ export default function Board() {
                 return (<>
                   <Link to={`/posts/${post.id}`} className={styles.post}>
                     <div className={styles.postTitle}>{post.title}</div>
-                    <div className={styles.postText}>{post.text}</div>
                     <img className={styles.postImage} src={image.url}></img>
                   </Link>
                   <hr></hr>
