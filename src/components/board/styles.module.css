@@ -72,6 +72,11 @@
     word-break: break-all;
 }
 
+.post{
+    text-decoration: none;
+    color: black;
+}
+
 .postImage{
     width: 90%;
 }
