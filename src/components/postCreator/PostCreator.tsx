@@ -17,8 +17,9 @@ export type Post = {
   image?: undefined | File,
   link?: undefined | string,
   pollTitle?: undefined | string,
-  pollOptions?: undefined | Array<string>
-  likes?: undefined | number
+  pollOptions?: undefined | Array<string>,
+  likes?: undefined | number,
+  community: undefined | string
 }
 
 export default function PostCreator() {
@@ -27,13 +28,10 @@ export default function PostCreator() {
     id: uuidv4(),
     title: undefined,
     text: undefined,
-    image: undefined,
-    link: undefined,
-    pollTitle: undefined,
-    pollOptions: undefined,
-    likes: 0
+    likes: 0,
+    community: undefined
   })
-  const [currentTab, setCurrentTab] = useState(<Text setPost={setPost} post={post} />)
+  const [currentTab, setCurrentTab] = useState<null | JSX.Element>(null)
   const [communities, setCommunities] = useState(["Create new community"])
 
   useEffect(() => {
@@ -49,8 +47,9 @@ export default function PostCreator() {
   }, [])
   
 
-  function chooseCommunity(community: string) {
-    setCommunity(community);
+  function chooseCommunity(chosenCommunity: string) {
+    setCommunity(chosenCommunity);
+    setPost({ ...post, community: chosenCommunity })
   }
 
   function renderPostImage(image: Post["image"]){
