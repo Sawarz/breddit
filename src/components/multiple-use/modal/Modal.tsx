@@ -7,8 +7,9 @@ type Props = {
 }
 
 export default function Modal({ toggleModal }: Props) {
-  const [validationMessage, setValidationMessage] = useState("Enter a community name first")
-  const [validation, setValidation] = useState(false);
+  const [validationMessage, setValidationMessage] = useState<string>("Enter a community name first")
+  const [validation, setValidation] = useState<boolean>(false);
+  const [communityCreated, setCommunityCreated] = useState<boolean>(false)
   let inputValue: string;
 
   async function validateCommunity(communityInput: string) {
@@ -35,13 +36,16 @@ export default function Modal({ toggleModal }: Props) {
           validateCommunity(e.target.value);
         }}></input>
         <div>Availability: {validationMessage}</div>
+        {communityCreated ? <div className={styles.success}>Community succesfully created!</div> : null}
         <div className={styles.buttons}>
-          <button className={styles.createButton} style={validation ? {backgroundColor: "rgba(27, 197, 27, 0.726)"} : {backgroundColor: "gray"}} onClick={(e) => {
+          {communityCreated ? null : <button className={styles.createButton} style={validation ? { backgroundColor: "rgba(27, 197, 27, 0.726)" } : { backgroundColor: "gray" }} onClick={(e) => {
             if (validation) {
               Firebase.createNewCommunity(inputValue);
-              toggleModal();
+              setCommunityCreated(true);
+              setTimeout(toggleModal, 3000);
             }
           }}>Create</button>
+          }
           <button className={styles.closeButton} onClick={() => {
             toggleModal();
           }}>Close</button>

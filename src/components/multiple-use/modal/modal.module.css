@@ -45,3 +45,7 @@
 .closeButton{
     background-color: rgba(253, 66, 66, 0.726);
 }
+
+.success{
+    color: green;
+}
