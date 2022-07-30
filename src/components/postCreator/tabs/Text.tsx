@@ -9,7 +9,7 @@ type Props = {
 
 export default function Text({ setPost, post }: Props) {
   const [text, setText] = useState<string | undefined>(post.text);
-  const [title, setTitle] = useState<string | undefined>(post.title)
+  const [title, setTitle] = useState<string | undefined>(post.title);
 
   useEffect(() => {
     setPost({
@@ -18,14 +18,17 @@ export default function Text({ setPost, post }: Props) {
       text: text
     })
   }, [text, title])
+
   
   return (
     <>
+    <div>Title:</div>
     <textarea className={styles.titleCreator}
       onChange={(e) => {
         setTitle(e.target.value);
         }}
       >{post.title}</textarea>
+    <div>Text:</div>
     <textarea className={styles.textCreator}
       onChange={(e) => {
         setText(e.target.value);
