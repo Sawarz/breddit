@@ -11,6 +11,10 @@
     margin-bottom: 100px;
 }
 
+.postCreator > * {
+    word-break: break-all;
+}
+
 .postElements{
     display: flex;
     flex-direction: row;
