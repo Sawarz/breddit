@@ -42,13 +42,14 @@ async function getCommunities() {
 
 
 async function addPost(post: Post) {
-  let imageURL;
   const postToBeSend = (({ image, ...o }) => o)(post)
   if (post.image != undefined) {
     await storeImage(post.image, post)
-    imageURL =  await getImage(post);
   } 
-  const result = await setDoc(doc(db, "posts", post.id), postToBeSend); 
+  if (post.id != undefined) {
+    console.log(postToBeSend)
+    const result = await setDoc(doc(db, "posts", post.id), postToBeSend); 
+  }
 }
 
 const storage = getStorage();
