@@ -47,7 +47,7 @@ async function addPost(post: Post) {
     await storeImage(post.image, post)
   } 
   if (post.id != undefined) {
-    console.log(postToBeSend)
+    console.log(postToBeSend);
     const result = await setDoc(doc(db, "posts", post.id), postToBeSend); 
   }
 }
@@ -65,6 +65,9 @@ async function getImage(post: Post) {
   let url = getDownloadURL(ref(storage, `postsImages/${post.id}`))
     .then((downloadedURL: string) => {
       return downloadedURL;
+    })
+    .catch(() => {
+    return "noImage"
   })
   return url;
 }

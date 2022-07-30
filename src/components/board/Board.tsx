@@ -45,15 +45,16 @@ export default function Board() {
           <div className={styles.filters}></div>
           <div className={styles.posts}>
             {renderPosts ? posts?.map((post) => {
+              console.log(images);
               if (images != undefined) {
                 let image = images.find(image => image.postID === post.id)
                 if(image != undefined)
                 return (<>
                   <Link to={`/posts/${post.id}`} className={styles.post}>
+                    <div className={styles.postCommunity}>b/{post.community}</div>
                     <div className={styles.postTitle}>{post.title}</div>
-                    <img className={styles.postImage} src={image.url}></img>
+                    {image.url !== "noImage" ? <img className={styles.postImage} src={image.url}></img> : null}
                   </Link>
-                  <hr></hr>
                   </>)
               }
               else {
