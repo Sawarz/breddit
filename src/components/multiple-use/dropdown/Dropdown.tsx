@@ -34,6 +34,7 @@ export default function Dropdown({ label, options, chooseCommunity }: props) {
 
   function toggleModal() {
     setModalOpen(!modalOpen);
+    window.location.reload();
   }
   
   useEffect(() => {
