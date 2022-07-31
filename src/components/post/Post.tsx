@@ -27,6 +27,7 @@ export default function Post() {
 
     async function getImageData() {
         let imageURL = await Firebase.getImage(post);
+        console.log(imageURL);
         setImageURL(imageURL);
     }
 
@@ -38,7 +39,6 @@ export default function Post() {
         if (post.id != undefined) {
             getImageData();
         }
-        console.log(post);
     }, [post])
     
     useEffect(() => {
@@ -50,10 +50,10 @@ export default function Post() {
           <div className={styles.title}>{post.title}</div>
           <div className={styles.text}>{post.text}</div>
           <>{renderPost ? (() => {
-            if(imageURL != undefined)
+            if(imageURL != "noImage")
                 return (<img src={imageURL} className={styles.image}></img>)
               else {
-                return <div>Loading...</div>
+                return null
               }
               })()
               :
