@@ -49,36 +49,48 @@
     border: 1px solid blue;
 }
 
-.dashboard{
-    padding: 5px;
-    background-color: white;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border-radius: 5px;
-    border: 1px solid rgb(216, 208, 208);
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);
-    gap: 5px;
-}
 
 .posts{
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-}
-
-.post > *{
-    word-break: break-all;
+    gap: 50px;
 }
 
 .post{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid rgb(216, 208, 208);
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);
+}
+
+.postLikes{
+    align-self: flex-start;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 229, 173);
+}
+
+.link > *{
+    word-break: break-all;
+}
+
+.link{
     text-decoration: none;
     color: black;
 }
 
 .postImage{
-    width: 90%;
+    max-width: 90%;
 }
 
 .postTitle{
