@@ -19,7 +19,8 @@ export type Post = {
   pollTitle?: undefined | string,
   pollOptions?: undefined | Array<string>,
   likes?: undefined | number,
-  community: undefined | string
+  community: undefined | string,
+  user: undefined | string
 }
 
 export default function PostCreator() {
@@ -29,7 +30,8 @@ export default function PostCreator() {
     title: undefined,
     text: undefined,
     likes: 0,
-    community: undefined
+    community: undefined,
+    user: undefined
   })
   const [currentTab, setCurrentTab] = useState<null | JSX.Element>(null)
   const [communities, setCommunities] = useState(["Create new community"])
@@ -44,6 +46,8 @@ export default function PostCreator() {
       setCommunities(newCommunities);
     } 
     fetchCommunitiesFromDB();
+    
+    setPost({...post, user: Firebase.auth.currentUser?.uid})
   }, [])
   
 
