@@ -10,11 +10,13 @@ export default function Post() {
             id: undefined,
             title: undefined,
             text: undefined,
-            community: undefined
+            community: undefined,
+            user: undefined
         }
     );
     const [imageURL, setImageURL] = useState<string>();
     const [renderPost, setRenderPost] = useState<boolean>(false);
+    const [username, setUsername] = useState<string>()
 
     const params = useParams();
     
@@ -27,8 +29,15 @@ export default function Post() {
 
     async function getImageData() {
         let imageURL = await Firebase.getImage(post);
-        console.log(imageURL);
         setImageURL(imageURL);
+    }
+
+    async function getUsername(){
+        let fetchedUser: string;
+        if(post.user !== undefined){
+            fetchedUser = await Firebase.getUsername(post.user);
+            setUsername(fetchedUser);
+        }   
     }
 
     useEffect(() => {
@@ -36,8 +45,9 @@ export default function Post() {
     }, [])
 
     useEffect(() => {
-        if (post.id != undefined) {
+        if (post.id !== undefined) {
             getImageData();
+            getUsername();
         }
     }, [post])
     
@@ -47,6 +57,10 @@ export default function Post() {
     
   return (
       <div className={styles.post}>
+          <div className={styles.postInfo}>
+            <div>b/{post.community}</div>
+            <div>{username}</div>
+          </div>
           <div className={styles.title}>{post.title}</div>
           <div className={styles.text}>{post.text}</div>
           <>{renderPost ? (() => {

@@ -15,6 +15,12 @@
     word-break: break-all;
 }
 
+.postInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .image{
     align-self: center;
     max-width: 80%;
