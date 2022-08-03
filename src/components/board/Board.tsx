@@ -64,7 +64,7 @@ export default function Board({loggedIn}: Props) {
                     </div>)
               }
               else {
-                return <div>Loading...</div>
+                return <div className={styles.loading}>Loading...</div>
               }
             })
               :
