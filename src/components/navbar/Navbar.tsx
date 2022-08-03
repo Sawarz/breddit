@@ -36,7 +36,7 @@ export default function Navbar({loggedIn, userID}: Props) {
           <div className={styles.username}>{username}</div>
           {loggedIn ? <button onClick={()=>{
             Firebase.auth.signOut();
-            navigate("/");
+            window.location.reload();
           }} className={styles.loginLink}>Log out!</button> : <Link to="/login" className={styles.loginLink}>Log in!</Link>}
     </div>
   )
