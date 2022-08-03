@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { doc, setDoc, getDoc } from "firebase/firestore"; 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -15,7 +16,7 @@ const firebaseConfig = {
   };
 
 const app = initializeApp(firebaseConfig);
-
+const auth = getAuth();
 const db = getFirestore(app);
 
 async function getPosts() {
@@ -76,14 +77,26 @@ async function createNewCommunity(name: string) {
   const result = await setDoc(doc(db, "communities", uuidv4()), {name: name});
 }
 
+async function getUsername(userID: string) {
+  const docRef = doc(db, "users", userID);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return docSnap.data().username;
+  }
+}
+
 
 const Firebase = {
+  app: app,
+  db: db,
+  auth: auth,
   getPosts: getPosts,
   getPost: getPost,
   getCommunities: getCommunities,
   addPost: addPost,
   createNewCommunity: createNewCommunity,
-  getImage: getImage
+  getImage: getImage,
+  getUsername: getUsername
 }
 
 export default Firebase;
