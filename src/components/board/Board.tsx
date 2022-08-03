@@ -48,9 +48,9 @@ export default function Board({loggedIn}: Props) {
           <div className={styles.filters}></div>
           <div className={styles.posts}>
             {renderPosts ? posts?.map((post) => {
-              if (images != undefined) {
+              if (images !== undefined) {
                 let image = images.find(image => image.postID === post.id)
-                if(image != undefined)
+                if(image !== undefined)
                   return (
                     <div className={styles.post}>
                       <div className={styles.postLikes}>{post.likes}</div>
