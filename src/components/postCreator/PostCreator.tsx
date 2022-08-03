@@ -10,17 +10,25 @@ import Poll from './tabs/Poll';
 import Firebase from '../../firebase/Firebase';
 import { uuidv4 } from '@firebase/util';
 
+export type Comment = {
+  user: string | undefined,
+  text: string | undefined,
+  likes: number | undefined,
+  uid: string | undefined
+}
+
 export type Post = {
-  id: undefined | string,
-  title: undefined | string,
-  text: undefined | string,
-  image?: undefined | File,
-  link?: undefined | string,
-  pollTitle?: undefined | string,
-  pollOptions?: undefined | Array<string>,
-  likes?: undefined | number,
-  community: undefined | string,
-  user: undefined | string
+  id: string | undefined,
+  title: string| undefined,
+  text: string| undefined,
+  image?: File| undefined,
+  link?: string| undefined,
+  pollTitle?: string| undefined,
+  pollOptions?: string[]| undefined,
+  likes?: number| undefined,
+  community: string| undefined,
+  user: string| undefined,
+  comments: Comment[] | undefined
 }
 
 export default function PostCreator() {
@@ -31,7 +39,8 @@ export default function PostCreator() {
     text: undefined,
     likes: 0,
     community: undefined,
-    user: undefined
+    user: undefined,
+    comments: undefined
   })
   const [currentTab, setCurrentTab] = useState<null | JSX.Element>(null)
   const [communities, setCommunities] = useState(["Create new community"])
@@ -46,7 +55,7 @@ export default function PostCreator() {
       setCommunities(newCommunities);
     } 
     fetchCommunitiesFromDB();
-    
+
     setPost({...post, user: Firebase.auth.currentUser?.uid})
   }, [])
   

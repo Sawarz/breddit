@@ -1,0 +1,14 @@
+.commentCreator{
+    display: flex;
+    position: relative;
+}
+
+.closeButton{
+    position: absolute;
+    right: 0;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background-color: rgb(255, 134, 134);
+    width: 30px;
+    height: 30px;
+}

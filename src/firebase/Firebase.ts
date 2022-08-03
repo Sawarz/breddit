@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { doc, setDoc, getDoc } from "firebase/firestore"; 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { Post } from '../components/postCreator/PostCreator';
+import { Comment, Post } from '../components/postCreator/PostCreator';
 import { uuidv4 } from '@firebase/util';
 
 const firebaseConfig = {
@@ -14,10 +14,11 @@ const firebaseConfig = {
     messagingSenderId: "48843299030",
     appId: "1:48843299030:web:b779da1acfa230be021177"
   };
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth();
-const db = getFirestore(app);
+  
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+  const db = getFirestore(app);
+  const storage = getStorage();
 
 async function getPosts() {
   const postsCol = collection(db, 'posts');
@@ -41,19 +42,30 @@ async function getCommunities() {
   return communitiesList;
 }
 
+async function getComments(postID: string){
+  const commentsCol = collection(db, 'posts', postID, 'comments');
+  const commentsSnapshot = await getDocs(commentsCol);
+  const commentsList = commentsSnapshot.docs.map(doc => doc.data());
+  return commentsList;
+}
+
 
 async function addPost(post: Post) {
   const postToBeSend = (({ image, ...o }) => o)(post)
-  if (post.image != undefined) {
+  if (post.image !== undefined) {
     await storeImage(post.image, post)
   } 
-  if (post.id != undefined) {
+  if (post.id !== undefined) {
     console.log(postToBeSend);
     const result = await setDoc(doc(db, "posts", post.id), postToBeSend); 
   }
 }
 
-const storage = getStorage();
+async function addComment(post: Post, comment: Comment) {
+  if (post.id !== undefined && comment.uid !== undefined) {
+    const result = await setDoc(doc(db, "posts", post.id, "comments", comment.uid), comment); 
+  }
+}
 
 async function storeImage(image: File, post: Post) {
   const folderRef = ref(storage, `postsImages/${post.id}`)
@@ -92,11 +104,13 @@ const Firebase = {
   auth: auth,
   getPosts: getPosts,
   getPost: getPost,
+  getComments: getComments,
   getCommunities: getCommunities,
   addPost: addPost,
   createNewCommunity: createNewCommunity,
   getImage: getImage,
-  getUsername: getUsername
+  getUsername: getUsername,
+  addComment: addComment
 }
 
 export default Firebase;
