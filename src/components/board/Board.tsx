@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom'
 import Firebase from '../../firebase/Firebase';
 import { Post } from '../postCreator/PostCreator';
 
-export default function Board() {
+type Props = {
+  loggedIn: boolean
+}
+
+export default function Board({loggedIn}: Props) {
   const [posts, setPosts] = useState<Post[]>();
   const [images, setImages] = useState<{ postID: undefined | string, url: string }[]>()
   const [renderPosts, setRenderPosts] = useState<boolean>(false)
@@ -39,7 +43,7 @@ export default function Board() {
       <div className={styles.main}>
         <div className={styles.createPost}>
           <div className={styles.profilePic}></div>
-          <Link to="/post" className={styles.createPostButton}>Create post</Link>
+          {loggedIn ? <Link to="/post" className={styles.createPostButton}>Create post</Link> : <Link to="/login" className={styles.createPostButton}>Create post</Link>}
         </div>
           <div className={styles.filters}></div>
           <div className={styles.posts}>
