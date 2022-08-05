@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { doc, setDoc, getDoc } from "firebase/firestore"; 
+import { getFirestore, collection, getDocs, deleteDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore"; 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Comment, Post } from '../components/postCreator/PostCreator';
 import { uuidv4 } from '@firebase/util';
@@ -20,6 +20,13 @@ const firebaseConfig = {
   const db = getFirestore(app);
   const storage = getStorage();
 
+  const post = {
+    get: getPost,
+    getAll: getPosts,
+    add: addPost,
+    delete: deletePost,
+  }
+
 async function getPosts() {
   const postsCol = collection(db, 'posts');
   const postsSnapshot = await getDocs(postsCol);
@@ -33,6 +40,10 @@ async function getPost(postID: string) {
   if (docSnap.exists()) {
     return docSnap.data();
   }
+}
+
+async function deletePost(postID: string) {
+  const result = await deleteDoc(doc(db, "posts", postID));
 }
 
 async function getCommunities() {
@@ -102,8 +113,7 @@ const Firebase = {
   app: app,
   db: db,
   auth: auth,
-  getPosts: getPosts,
-  getPost: getPost,
+  post: post,
   getComments: getComments,
   getCommunities: getCommunities,
   addPost: addPost,
