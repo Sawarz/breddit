@@ -18,7 +18,6 @@
 .postInfo{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
 }
 
 .image{
@@ -30,6 +29,10 @@
     text-align: left;
     font-size: 2rem;
     font-weight: 600;
+}
+
+.username{
+    margin-left: auto;
 }
 
 .addCommentButton{
