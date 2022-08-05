@@ -28,7 +28,7 @@ export type Post = {
   likes?: number| undefined,
   community: string| undefined,
   user: string| undefined,
-  comments: Comment[] | undefined
+  comments?: Comment[] | undefined
 }
 
 export default function PostCreator() {
@@ -40,7 +40,6 @@ export default function PostCreator() {
     likes: 0,
     community: undefined,
     user: undefined,
-    comments: undefined
   })
   const [currentTab, setCurrentTab] = useState<null | JSX.Element>(null)
   const [communities, setCommunities] = useState(["Create new community"])
