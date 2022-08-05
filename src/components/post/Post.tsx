@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styles from './post.module.css'
 import Firebase from '../../firebase/Firebase'
 import { Post as PostType, Comment as CommentType } from '../postCreator/PostCreator'
@@ -24,10 +24,11 @@ export default function Post() {
     const [comments, setComments] = useState<CommentType[] | undefined>();
 
     const params = useParams();
+    const navigate = useNavigate();
     
     async function getPostData() {
         if (params.postID !== undefined) {
-            let postFromDB = await Firebase.getPost(params.postID) as PostType;
+            let postFromDB = await Firebase.post.get(params.postID) as PostType;
             setPost(postFromDB);
         } 
     }
@@ -74,7 +75,15 @@ export default function Post() {
       <div className={styles.post}>
           <div className={styles.postInfo}>
             <div>b/{post.community}</div>
-            <div>{authorUsername}</div>
+            <div className={styles.username}>{authorUsername}</div>
+            {Firebase.auth.currentUser?.uid === post.user ?
+            <button onClick={()=>{
+                navigate(`edit`);
+            }}>Edit</button>
+            :
+            null
+            }
+            
           </div>
           <div className={styles.title}>{post.title}</div>
           <div className={styles.text}>{post.text}</div>
