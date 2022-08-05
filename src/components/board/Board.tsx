@@ -15,7 +15,7 @@ export default function Board({loggedIn}: Props) {
 
   useEffect(() => {
     async function fetchPostsFromDB() {
-      const postsFromDB = await Firebase.getPosts() as Array<Post>;
+      const postsFromDB = await Firebase.post.getAll() as Array<Post>;
       setPosts(postsFromDB);
       let newImages: { postID: undefined | string, url: string }[] = [];
       async function getImageData () {
