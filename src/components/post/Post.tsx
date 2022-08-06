@@ -75,16 +75,16 @@ export default function Post() {
       <div className={styles.post}>
           <div className={styles.postInfo}>
             <div>b/{post.community}</div>
-            <div className={styles.username}>{authorUsername}</div>
             {Firebase.auth.currentUser?.uid === post.user ?
-            <button onClick={()=>{
+            <button className={styles.editButton} onClick={()=>{
                 navigate(`edit`);
             }}>Edit</button>
             :
             null
-            }
+        }
             
           </div>
+        <div className={styles.username}>{authorUsername}</div>
           <div className={styles.title}>{post.title}</div>
           <div className={styles.text}>{post.text}</div>
           <>
