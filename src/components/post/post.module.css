@@ -1,4 +1,5 @@
 .post{
+    position: relative;
     width: 50vw;
     padding: 30px;
     background-color: white;
@@ -43,4 +44,29 @@
     font-size: 1.2rem;
     font-weight: 600;
     background-color: wheat;
+}
+
+.likesInterface{
+    position: absolute;
+    right: 30px;
+    top: 70px;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.arrow{
+    height: 30px;
+    width: 30px;
+    background-color: transparent;
+}
+
+.likes{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 229, 173);
 }
