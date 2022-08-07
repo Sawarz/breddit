@@ -26,7 +26,8 @@ export type Post = {
   link?: string| undefined,
   pollTitle?: string| undefined,
   pollOptions?: string[]| undefined,
-  likes?: number| undefined,
+  likes?: number | undefined,
+  likedBy?: string[] | undefined,
   community: string| undefined,
   user: string| undefined,
   comments?: Comment[] | undefined
@@ -39,6 +40,7 @@ export default function PostCreator() {
     title: undefined,
     text: undefined,
     likes: 0,
+    likedBy: [],
     community: undefined,
     user: undefined,
   })

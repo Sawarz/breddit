@@ -5,6 +5,8 @@ import Firebase from '../../firebase/Firebase'
 import { Post as PostType, Comment as CommentType } from '../postCreator/PostCreator'
 import CommentCreator from './commentCreator/CommentCreator'
 import Comment from './comment/Comment'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons'
 
 export default function Post() {
     const [post, setPost] = useState<PostType>(
@@ -84,8 +86,8 @@ export default function Post() {
         }
             
           </div>
-        <div className={styles.username}>{authorUsername}</div>
-          <div className={styles.title}>{post.title}</div>
+          <div className={styles.username}>{authorUsername}</div>
+        <div className={styles.title}>{post.title}</div>
           <div className={styles.text}>{post.text}</div>
           <>
             {renderPost ? (() => {
@@ -100,14 +102,40 @@ export default function Post() {
           }
           </>
           <>
-            {Firebase.auth.currentUser ? <button className={styles.addCommentButton} onClick={()=>{
+            {Firebase.auth.currentUser ?
+                <button className={styles.addCommentButton} onClick={() => {
                 setCommentCreation(true);
-            }}>Add a comment</button> : null}
+                }}>Add a comment</button> : null}
             {commentCreation ? <CommentCreator setCommentCreation={setCommentCreation} post={post}/> : null}
             {comments ? comments.map((comment)=>{
                 return <Comment comment={comment}/>
             }) : null}
           </>
+          <div className={styles.likesInterface}>
+            {Firebase.auth.currentUser ? 
+                <button
+                onClick={() => {
+                    if (post.id !== undefined && post.likes !== undefined && Firebase.auth.currentUser) {
+                        let newLikes = post.likes + 1;
+                        setPost({ ...post, likes: newLikes });
+                        Firebase.likes.addLike(post.id, Firebase.auth.currentUser?.uid);
+                    }
+                }}
+                className={styles.arrow}><FontAwesomeIcon icon={faArrowUp} /></button> 
+            : null}
+            <div className={styles.likes}>{post.likes}</div>
+            {Firebase.auth.currentUser ? 
+                <button
+                onClick={() => {
+                    if (post.id !== undefined && post.likes !== undefined && Firebase.auth.currentUser) {
+                        let newLikes = post.likes - 1;
+                        setPost({ ...post, likes: newLikes });
+                        Firebase.likes.subtractLike(post.id, Firebase.auth.currentUser?.uid);
+                    }
+                }}
+                className={styles.arrow}><FontAwesomeIcon icon={faArrowDown} /></button> 
+            : null}
+        </div>
     </div>
   )
 }

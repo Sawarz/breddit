@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, getDocs, deleteDoc } from 'firebase/firestore';
-import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore"; 
+import { doc, setDoc, getDoc, updateDoc, increment, arrayUnion, arrayRemove } from "firebase/firestore"; 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Comment, Post } from '../components/postCreator/PostCreator';
 import { uuidv4 } from '@firebase/util';
@@ -108,12 +108,34 @@ async function getUsername(userID: string) {
   }
 }
 
+async function addLike(postID: string, userID: string) {
+  const postRef = doc(db, "posts", postID);
+  await updateDoc(postRef, {
+    likes: increment(1),
+    likedBy: arrayUnion(userID)
+  });
+}
+
+async function subtractLike(postID: string, userID: string) {
+  const postRef = doc(db, "posts", postID);
+  await updateDoc(postRef, {
+    likes: increment(-1),
+    likedBy: arrayRemove(userID)
+  });
+}
+
+const likes = {
+  addLike: addLike,
+  subtractLike: subtractLike
+}
+
 
 const Firebase = {
   app: app,
   db: db,
   auth: auth,
   post: post,
+  likes: likes,
   getComments: getComments,
   getCommunities: getCommunities,
   addPost: addPost,
