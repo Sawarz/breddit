@@ -9,6 +9,7 @@ import Link from './tabs/Link';
 import Poll from './tabs/Poll';
 import Firebase from '../../firebase/Firebase';
 import { uuidv4 } from '@firebase/util';
+import { useNavigate } from 'react-router-dom';
 
 export type Comment = {
   user: string | undefined,
@@ -43,6 +44,11 @@ export default function PostCreator() {
   })
   const [currentTab, setCurrentTab] = useState<null | JSX.Element>(null)
   const [communities, setCommunities] = useState(["Create new community"])
+
+  const navigate = useNavigate();
+
+  if(Firebase.auth.currentUser?.uid == undefined)
+        navigate("/");
 
   useEffect(() => {
     async function fetchCommunitiesFromDB() {
