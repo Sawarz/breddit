@@ -97,7 +97,7 @@ async function getImage(post: Post) {
 }
 
 async function createNewCommunity(name: string) {
-  const result = await setDoc(doc(db, "communities", uuidv4()), {name: name});
+  const result = await setDoc(doc(db, "communities", uuidv4()), {name: name, numOfMembers: 0});
 }
 
 async function getUsername(userID: string) {
