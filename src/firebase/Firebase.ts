@@ -148,6 +148,11 @@ const likes = {
   clearLike: clearLike
 }
 
+const communities = {
+  getCommunities: getCommunities,
+  createNewCommunity: createNewCommunity
+}
+
 
 const Firebase = {
   app: app,
@@ -155,10 +160,8 @@ const Firebase = {
   auth: auth,
   post: post,
   likes: likes,
+  communities: communities,
   getComments: getComments,
-  getCommunities: getCommunities,
-  addPost: addPost,
-  createNewCommunity: createNewCommunity,
   getImage: getImage,
   getUsername: getUsername,
   addComment: addComment
