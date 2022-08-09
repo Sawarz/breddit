@@ -55,7 +55,7 @@ export default function PostCreator() {
 
   useEffect(() => {
     async function fetchCommunitiesFromDB() {
-      const communitiesFromDB = await Firebase.getCommunities();
+      const communitiesFromDB = await Firebase.communities.getCommunities();
       const newCommunities = [...communities];
       communitiesFromDB.forEach((community) => {
         newCommunities.push(community.name)
@@ -135,7 +135,7 @@ export default function PostCreator() {
         })}</div>
       </div>
       <button className={styles.postButton} onClick={()=>{
-        Firebase.addPost(post);
+        Firebase.post.add(post);
       }}>Post</button>
     </div>
   )

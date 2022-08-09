@@ -13,7 +13,7 @@ export default function Modal({ toggleModal }: Props) {
   let inputValue: string;
 
   async function validateCommunity(communityInput: string) {
-    const communities = await Firebase.getCommunities();
+    const communities = await Firebase.communities.getCommunities();
     communities.some((community) => {
       if (community.name.toLowerCase() === communityInput.toLowerCase()) {
         setValidationMessage("Community with this name already exists!");
@@ -40,7 +40,7 @@ export default function Modal({ toggleModal }: Props) {
         <div className={styles.buttons}>
           {communityCreated ? null : <button className={styles.createButton} style={validation ? { backgroundColor: "rgba(27, 197, 27, 0.726)" } : { backgroundColor: "gray" }} onClick={(e) => {
             if (validation) {
-              Firebase.createNewCommunity(inputValue);
+              Firebase.communities.createNewCommunity(inputValue);
               setCommunityCreated(true);
               setTimeout(toggleModal, 3000);
             }
