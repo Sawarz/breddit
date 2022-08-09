@@ -1,0 +1,17 @@
+.notFound{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid rgb(216, 208, 208);
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);
+    width: 40vw;
+}
+
+.error{
+    font-size: 1.4rem;
+}
