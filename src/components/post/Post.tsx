@@ -77,11 +77,6 @@ export default function Post() {
         setRenderPost(true);
     }, [imageURL])
     
-    useEffect(() => {
-        console.log(postLiked);
-        console.log((postLiked === false))
-    }, [postLiked])
-    
   return (
       <div className={styles.post}>
           <div className={styles.postInfo}>
