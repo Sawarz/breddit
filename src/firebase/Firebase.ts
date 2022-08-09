@@ -112,7 +112,8 @@ async function addLike(postID: string, userID: string) {
   const postRef = doc(db, "posts", postID);
   await updateDoc(postRef, {
     likes: increment(1),
-    likedBy: arrayUnion(userID)
+    likedBy: arrayUnion(userID),
+    dislikedBy: arrayRemove(userID)
   });
 }
 
@@ -120,13 +121,31 @@ async function subtractLike(postID: string, userID: string) {
   const postRef = doc(db, "posts", postID);
   await updateDoc(postRef, {
     likes: increment(-1),
-    likedBy: arrayRemove(userID)
+    likedBy: arrayRemove(userID),
+    dislikedBy: arrayUnion(userID)
+  });
+}
+
+async function clearLike(postID: string, userID: string, postLiked: boolean) {
+  const postRef = doc(db, "posts", postID);
+  await updateDoc(postRef, {
+    likedBy: arrayRemove(userID),
+    dislikedBy: arrayRemove(userID)
+  });
+  if (postLiked)
+    await updateDoc(postRef, {
+      likes: increment(-1)
+    });
+  else
+  await updateDoc(postRef, {
+    likes: increment(+1)
   });
 }
 
 const likes = {
   addLike: addLike,
-  subtractLike: subtractLike
+  subtractLike: subtractLike,
+  clearLike: clearLike
 }
 
 

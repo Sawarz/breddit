@@ -21,9 +21,10 @@ export default function Post() {
     );
     const [imageURL, setImageURL] = useState<string>();
     const [renderPost, setRenderPost] = useState<boolean>(false);
-    const [authorUsername, setAuthorUsername] = useState<string>()
-    const [commentCreation, setCommentCreation] = useState<boolean>(false)
+    const [authorUsername, setAuthorUsername] = useState<string>();
+    const [commentCreation, setCommentCreation] = useState<boolean>(false);
     const [comments, setComments] = useState<CommentType[] | undefined>();
+    const [postLiked, setPostLiked] = useState<boolean | undefined>();
 
     const params = useParams();
     const navigate = useNavigate();
@@ -32,6 +33,10 @@ export default function Post() {
         if (params.postID !== undefined) {
             let postFromDB = await Firebase.post.get(params.postID) as PostType;
             setPost(postFromDB);
+            if (postFromDB.likedBy?.some((likingID) => likingID === Firebase.auth.currentUser?.uid))
+                setPostLiked(true);
+            else if (postFromDB.dislikedBy?.some((likingID) => likingID === Firebase.auth.currentUser?.uid))
+                setPostLiked(false);
         } 
     }
 
@@ -51,7 +56,6 @@ export default function Post() {
     async function getCommentsData(){
         if (params.postID !== undefined) {
             let commentsFromDB = await Firebase.getComments(params.postID) as CommentType[];
-            console.log(commentsFromDB)
             setComments(commentsFromDB);
         } 
     }
@@ -71,7 +75,12 @@ export default function Post() {
     
     useEffect(() => {
         setRenderPost(true);
-      }, [imageURL])
+    }, [imageURL])
+    
+    useEffect(() => {
+        console.log(postLiked);
+        console.log((postLiked === false))
+    }, [postLiked])
     
   return (
       <div className={styles.post}>
@@ -115,25 +124,61 @@ export default function Post() {
             {Firebase.auth.currentUser ? 
                 <button
                 onClick={() => {
-                    if (post.id !== undefined && post.likes !== undefined && Firebase.auth.currentUser) {
-                        let newLikes = post.likes + 1;
-                        setPost({ ...post, likes: newLikes });
-                        Firebase.likes.addLike(post.id, Firebase.auth.currentUser?.uid);
+                    if (Firebase.auth.currentUser === undefined)
+                        navigate("/login");
+                    else if (post.id !== undefined && post.likes !== undefined && Firebase.auth.currentUser) {
+                        if (postLiked === undefined) {
+                            let newLikes = post.likes + 1;
+                            setPost({ ...post, likes: newLikes });
+                            Firebase.likes.addLike(post.id, Firebase.auth.currentUser?.uid);
+                            setPostLiked(true);
+                        }
+                        else if (postLiked === true) {
+                            let newLikes = post.likes - 1;
+                            setPost({ ...post, likes: newLikes });
+                            Firebase.likes.clearLike(post.id, Firebase.auth.currentUser?.uid, postLiked);
+                            setPostLiked(undefined);
+                        }
+                        else if (postLiked === false) {
+                            let newLikes = post.likes + 2;
+                            setPost({ ...post, likes: newLikes });
+                            Firebase.likes.clearLike(post.id, Firebase.auth.currentUser?.uid, postLiked);
+                            Firebase.likes.addLike(post.id, Firebase.auth.currentUser?.uid);
+                            setPostLiked(true);
+                        }
                     }
                 }}
-                className={styles.arrow}><FontAwesomeIcon icon={faArrowUp} /></button> 
+                className={styles.arrow} style={postLiked ? {backgroundColor: "lightgreen"} : {}}><FontAwesomeIcon icon={faArrowUp} /></button> 
             : null}
             <div className={styles.likes}>{post.likes}</div>
             {Firebase.auth.currentUser ? 
                 <button
                 onClick={() => {
-                    if (post.id !== undefined && post.likes !== undefined && Firebase.auth.currentUser) {
-                        let newLikes = post.likes - 1;
-                        setPost({ ...post, likes: newLikes });
-                        Firebase.likes.subtractLike(post.id, Firebase.auth.currentUser?.uid);
+                    if (Firebase.auth.currentUser === undefined)
+                        navigate("/login");
+                    else if (post.id !== undefined && post.likes !== undefined && Firebase.auth.currentUser) {
+                        if (postLiked === undefined) {
+                            let newLikes = post.likes - 1;
+                            setPost({ ...post, likes: newLikes });
+                            Firebase.likes.subtractLike(post.id, Firebase.auth.currentUser?.uid);
+                            setPostLiked(false);
+                        }
+                        else if (postLiked === false) {
+                            let newLikes = post.likes + 1;
+                            setPost({ ...post, likes: newLikes });
+                            Firebase.likes.clearLike(post.id, Firebase.auth.currentUser?.uid, postLiked);
+                            setPostLiked(undefined);
+                        }
+                        else if (postLiked === true) {
+                            let newLikes = post.likes - 2;
+                            setPost({ ...post, likes: newLikes });
+                            Firebase.likes.clearLike(post.id, Firebase.auth.currentUser?.uid, postLiked);
+                            Firebase.likes.subtractLike(post.id, Firebase.auth.currentUser?.uid);
+                            setPostLiked(false);
+                        }
                     }
                 }}
-                className={styles.arrow}><FontAwesomeIcon icon={faArrowDown} /></button> 
+                className={styles.arrow} style={(postLiked === false) ? {backgroundColor: "rgb(255, 107, 107)"} : {}}><FontAwesomeIcon icon={faArrowDown} /></button> 
             : null}
         </div>
     </div>
