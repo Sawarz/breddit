@@ -10,6 +10,7 @@ import Register from "./components/auth/register/Register";
 import Login from "./components/auth/login/Login";
 import Firebase from "./firebase/Firebase";
 import Board from "./components/board/Board";
+import Community from "./components/community/Community";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -40,6 +41,7 @@ function App() {
           <Route path="/posts/:postID/edit" element={<PostEdit />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
+          <Route path="/:community" element={<Community />}></Route>
         </Routes>
       </div>
     </HashRouter>
