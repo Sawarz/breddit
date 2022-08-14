@@ -125,20 +125,20 @@ export default function Post() {
                         if (postLiked === undefined) {
                             let newLikes = post.likes + 1;
                             setPost({ ...post, likes: newLikes });
-                            Firebase.likes.addLike(post.id, Firebase.auth.currentUser?.uid);
+                            Firebase.like.add(post.id, Firebase.auth.currentUser?.uid);
                             setPostLiked(true);
                         }
                         else if (postLiked === true) {
                             let newLikes = post.likes - 1;
                             setPost({ ...post, likes: newLikes });
-                            Firebase.likes.clearLike(post.id, Firebase.auth.currentUser?.uid, postLiked);
+                            Firebase.like.clear(post.id, Firebase.auth.currentUser?.uid, postLiked);
                             setPostLiked(undefined);
                         }
                         else if (postLiked === false) {
                             let newLikes = post.likes + 2;
                             setPost({ ...post, likes: newLikes });
-                            Firebase.likes.clearLike(post.id, Firebase.auth.currentUser?.uid, postLiked);
-                            Firebase.likes.addLike(post.id, Firebase.auth.currentUser?.uid);
+                            Firebase.like.clear(post.id, Firebase.auth.currentUser?.uid, postLiked);
+                            Firebase.like.add(post.id, Firebase.auth.currentUser?.uid);
                             setPostLiked(true);
                         }
                     }
@@ -155,20 +155,20 @@ export default function Post() {
                         if (postLiked === undefined) {
                             let newLikes = post.likes - 1;
                             setPost({ ...post, likes: newLikes });
-                            Firebase.likes.subtractLike(post.id, Firebase.auth.currentUser?.uid);
+                            Firebase.like.subtract(post.id, Firebase.auth.currentUser?.uid);
                             setPostLiked(false);
                         }
                         else if (postLiked === false) {
                             let newLikes = post.likes + 1;
                             setPost({ ...post, likes: newLikes });
-                            Firebase.likes.clearLike(post.id, Firebase.auth.currentUser?.uid, postLiked);
+                            Firebase.like.clear(post.id, Firebase.auth.currentUser?.uid, postLiked);
                             setPostLiked(undefined);
                         }
                         else if (postLiked === true) {
                             let newLikes = post.likes - 2;
                             setPost({ ...post, likes: newLikes });
-                            Firebase.likes.clearLike(post.id, Firebase.auth.currentUser?.uid, postLiked);
-                            Firebase.likes.subtractLike(post.id, Firebase.auth.currentUser?.uid);
+                            Firebase.like.clear(post.id, Firebase.auth.currentUser?.uid, postLiked);
+                            Firebase.like.subtract(post.id, Firebase.auth.currentUser?.uid);
                             setPostLiked(false);
                         }
                     }

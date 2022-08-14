@@ -55,7 +55,7 @@ export default function PostCreator() {
 
   useEffect(() => {
     async function fetchCommunitiesFromDB() {
-      const communitiesFromDB = await Firebase.communities.getCommunities();
+      const communitiesFromDB = await Firebase.community.getAll();
       const newCommunities = [...communities];
       communitiesFromDB.forEach((community) => {
         newCommunities.push(community.name)
