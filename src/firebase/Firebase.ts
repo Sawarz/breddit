@@ -44,6 +44,12 @@ async function getPost(postID: string) {
 
 async function deletePost(postID: string) {
   const result = await deleteDoc(doc(db, "posts", postID));
+  const communities = await getCommunities();
+  const communityID = communities.find(community => community.posts.some((communityPost: string) => communityPost === postID) === true)?.id
+  const docRef = doc(db, "communities", communityID);
+  const result2 = await updateDoc(docRef, {
+    posts: arrayRemove(postID)
+  })
 }
 
 async function getCommunities() {
@@ -51,6 +57,14 @@ async function getCommunities() {
   const communitiesSnapshot = await getDocs(communitiesCol);
   const communitiesList = communitiesSnapshot.docs.map(doc => doc.data());
   return communitiesList;
+}
+
+async function getCommunity(communityID: string) {
+  const docRef = doc(db, "communities", communityID);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return docSnap.data();
+  }
 }
 
 async function getComments(postID: string){
@@ -69,6 +83,12 @@ async function addPost(post: Post) {
   if (post.id !== undefined) {
     console.log(postToBeSend);
     const result = await setDoc(doc(db, "posts", post.id), postToBeSend); 
+    const communities = await getCommunities();
+    const communityID = communities.find(community => (community.name === post.community))?.id
+    const docRef = doc(db, "communities", communityID);
+    const result2 = await updateDoc(docRef, {
+      posts: arrayUnion(post.id)
+    })
   }
 }
 
@@ -97,7 +117,8 @@ async function getImage(post: Post) {
 }
 
 async function createNewCommunity(name: string) {
-  const result = await setDoc(doc(db, "communities", uuidv4()), {name: name, numOfMembers: 0});
+  const communityID = uuidv4();
+  const result = await setDoc(doc(db, "communities", communityID), {id: communityID, name: name, numOfMembers: 0, posts: []});
 }
 
 async function getUsername(userID: string) {
@@ -142,15 +163,16 @@ async function clearLike(postID: string, userID: string, postLiked: boolean) {
   });
 }
 
-const likes = {
-  addLike: addLike,
-  subtractLike: subtractLike,
-  clearLike: clearLike
+const like = {
+  add: addLike,
+  subtract: subtractLike,
+  clear: clearLike
 }
 
-const communities = {
-  getCommunities: getCommunities,
-  createNewCommunity: createNewCommunity
+const community = {
+  get: getCommunity,
+  getAll: getCommunities,
+  createNew: createNewCommunity,
 }
 
 
@@ -159,8 +181,8 @@ const Firebase = {
   db: db,
   auth: auth,
   post: post,
-  likes: likes,
-  communities: communities,
+  like: like,
+  community: community,
   getComments: getComments,
   getImage: getImage,
   getUsername: getUsername,
