@@ -41,7 +41,7 @@ function App() {
           <Route path="/posts/:postID/edit" element={<PostEdit />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
-          <Route path="/:community" element={<Community />}></Route>
+          <Route path="/:communityID" element={<Community loggedIn={loggedIn}/>}></Route>
         </Routes>
       </div>
     </HashRouter>
