@@ -1,28 +1,9 @@
-.board{
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
-}
-
-
-
-.addons{
-    width: 15vw;
-}
-
-.addon{
-    max-height: 30vh;
-    overflow-y: auto;
+.main{
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    padding: 10px;
-    background-color: white;
-    align-items: center;
-    border-radius: 5px;
-    border: 1px solid rgb(216, 208, 208);
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);
+    gap: 20px;
+    width: 20vw;
+    min-width: 350px;
 }
 
 .createPost{
@@ -113,25 +94,4 @@
     border-radius: 5px;
     border: 1px solid rgb(216, 208, 208);
     box-shadow: 0 1px 2px 0 rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);
-}
-
-.searchResults{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.communityLink{
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    color: black;
-    text-decoration: none;
-    width: 80%;
-    text-align: center;
-}
-
-.numOfMembers{
-    margin-left: auto;
 }
