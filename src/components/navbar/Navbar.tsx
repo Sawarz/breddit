@@ -4,6 +4,7 @@ import Logo from '../multiple-use/logo/Logo'
 import { Link, useNavigate } from 'react-router-dom'
 import Firebase from '../../firebase/Firebase'
 import { onAuthStateChanged } from 'firebase/auth'
+import { User } from '../../types/User'
 
 type Props = {
   loggedIn: boolean,
@@ -11,21 +12,21 @@ type Props = {
 }
 
 export default function Navbar({loggedIn, userID}: Props) {
-  const [username, setUsername] = useState<string | undefined>()
+  const [user, setUser] = useState<User | undefined>()
   let navigate = useNavigate();
   
   useEffect(() => {
     async function fetchUsername(){
       if(userID !== undefined){
-        let fetchedUsername = await Firebase.getUsername(userID);
-        setUsername(fetchedUsername);
+        let fetchedUser = await Firebase.getUser(userID) as User;
+        setUser(fetchedUser);
       }
     }
     fetchUsername();
 
     onAuthStateChanged(Firebase.auth, (user) => {
       if(!user)
-        setUsername("");
+        setUser(undefined);
     });
   }, [userID])
   
@@ -33,7 +34,7 @@ export default function Navbar({loggedIn, userID}: Props) {
   return (
       <div className={styles.navbar}>
           <Logo />
-          <div className={styles.username}>{username}</div>
+          <div className={styles.username}>{user?.username}</div>
           {loggedIn ? <button onClick={()=>{
             Firebase.auth.signOut();
             window.location.reload();

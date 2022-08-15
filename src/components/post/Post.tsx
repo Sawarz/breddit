@@ -7,6 +7,7 @@ import CommentCreator from './commentCreator/CommentCreator'
 import Comment from './comment/Comment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons'
+import { User } from '../../types/User'
 
 export default function Post() {
     const [post, setPost] = useState<PostType>(
@@ -21,7 +22,7 @@ export default function Post() {
     );
     const [imageURL, setImageURL] = useState<string>();
     const [renderPost, setRenderPost] = useState<boolean>(false);
-    const [authorUsername, setAuthorUsername] = useState<string>();
+    const [author, setAuthor] = useState<User>();
     const [commentCreation, setCommentCreation] = useState<boolean>(false);
     const [comments, setComments] = useState<CommentType[] | undefined>();
     const [postLiked, setPostLiked] = useState<boolean | undefined>();
@@ -46,10 +47,10 @@ export default function Post() {
     }
 
     async function getUsername(){
-        let fetchedUser: string;
+        let fetchedUser: User;
         if(post.user !== undefined){
-            fetchedUser = await Firebase.getUsername(post.user);
-            setAuthorUsername(fetchedUser);
+            fetchedUser = await Firebase.getUser(post.user) as User;
+            setAuthor(fetchedUser);
         }   
     }
 
@@ -90,7 +91,7 @@ export default function Post() {
         }
             
           </div>
-          <div className={styles.username}>{authorUsername}</div>
+          <div className={styles.username}>{author?.username}</div>
         <div className={styles.title}>{post.title}</div>
           <div className={styles.text}>{post.text}</div>
           <>
