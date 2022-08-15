@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './community.module.css'
-import { useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import FirebaseCore from '../../firebase/FirebaseCore';
 import Firebase from '../../firebase/Firebase';
 import { Community as CommunityType } from '../board/Board';
@@ -14,6 +14,7 @@ type Props = {
 
 export default function Community({ loggedIn }: Props) {
   const params = useParams();
+  const navigate = useNavigate();
 
   const [community, setCommunity] = useState<CommunityType>();
   const [joined, setJoined] = useState<boolean>(false);
@@ -41,6 +42,9 @@ export default function Community({ loggedIn }: Props) {
     if (community && FirebaseCore.auth.currentUser?.uid) {
       Firebase.community.join(community?.id, FirebaseCore.auth.currentUser?.uid)
       setJoined(true);
+    }
+    else {
+      navigate("/login");
     }
   }
 
