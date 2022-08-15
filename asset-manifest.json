@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/breddit/static/css/main.5de120fc.css",
+    "main.js": "/breddit/static/js/main.dd1088a7.js",
+    "static/media/sadtoast.png": "/breddit/static/media/sadtoast.f2286b6013ae9cfc9b66.png",
+    "static/media/happytoast.png": "/breddit/static/media/happytoast.e68f09c23ad955426657.png",
+    "static/media/background.jpg": "/breddit/static/media/background.dc7098d68025ee61b27e.jpg",
+    "static/media/breadlogo.png": "/breddit/static/media/breadlogo.29d95866f4795939e416.png",
+    "index.html": "/breddit/index.html",
+    "main.5de120fc.css.map": "/breddit/static/css/main.5de120fc.css.map",
+    "main.dd1088a7.js.map": "/breddit/static/js/main.dd1088a7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5de120fc.css",
+    "static/js/main.dd1088a7.js"
+  ]
+}
