@@ -1,39 +1,17 @@
 import { useState, useEffect } from 'react'
 import styles from './styles.module.css'
-import Dropdown from '../multiple-use/dropdown/Dropdown'
+import Dropdown from '../../multiple-use/dropdown/Dropdown'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileText, faFont, faPaperclip, faSquarePollVertical } from '@fortawesome/free-solid-svg-icons';
 import Text from './tabs/Text';
 import Image from './tabs/Image';
 import Link from './tabs/Link';
 import Poll from './tabs/Poll';
-import FirebaseCore from '../../firebase/FirebaseCore';
-import Firebase from '../../firebase/Firebase';
+import FirebaseCore from '../../../firebase/FirebaseCore';
+import Firebase from '../../../firebase/Firebase';
 import { uuidv4 } from '@firebase/util';
 import { useNavigate } from 'react-router-dom';
-
-export type Comment = {
-  user: string | undefined,
-  text: string | undefined,
-  likes: number | undefined,
-  uid: string | undefined
-}
-
-export type Post = {
-  id: string | undefined,
-  title: string| undefined,
-  text: string| undefined,
-  image?: File| undefined,
-  link?: string| undefined,
-  pollTitle?: string| undefined,
-  pollOptions?: string[]| undefined,
-  likes?: number | undefined,
-  likedBy?: string[] | undefined,
-  dislikedBy?: string[] | undefined,
-  community: string| undefined,
-  user: string| undefined,
-  comments?: Comment[] | undefined
-}
+import { Post } from '../../../types/Post';
 
 export default function PostCreator() {
   const [community, setCommunity] = useState("");

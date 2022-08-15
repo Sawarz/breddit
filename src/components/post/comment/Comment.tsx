@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Firebase from '../../../firebase/Firebase'
-import { Comment as CommentType } from '../../postCreator/PostCreator'
+import { Comment as CommentType } from '../../../types/Comment'
 import { User } from '../../../types/User'
 import styles from './comment.module.css'
 

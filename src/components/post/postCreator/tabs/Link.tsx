@@ -1,6 +1,5 @@
-import { link } from 'fs'
 import React from 'react'
-import { Post } from '../PostCreator'
+import { Post } from '../../../../types/Post'
 
 type Props = {
     setPost: React.Dispatch<React.SetStateAction<Post>>

@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import styles from './post.module.css'
-import Firebase from '../../firebase/Firebase'
-import FirebaseCore from '../../firebase/FirebaseCore'
-import { Post as PostType, Comment as CommentType } from '../postCreator/PostCreator'
-import CommentCreator from './commentCreator/CommentCreator'
-import Comment from './comment/Comment'
-import { User } from '../../types/User'
-import happyToastImg from '../../assets/happytoast.png'
-import sadToastImg from '../../assets/sadtoast.png'
+import Firebase from '../../../firebase/Firebase'
+import FirebaseCore from '../../../firebase/FirebaseCore'
+import { Post as PostType } from '../../../types/Post'
+import { Comment as CommentType } from '../../../types/Comment'
+import CommentCreator from '../commentCreator/CommentCreator'
+import Comment from '../comment/Comment'
+import { User } from '../../../types/User'
+import happyToastImg from '../../../assets/happytoast.png'
+import sadToastImg from '../../../assets/sadtoast.png'
 
 export default function Post() {
     const [post, setPost] = useState<PostType>(

@@ -2,7 +2,8 @@ import { useState } from 'react';
 import FirebaseCore from '../../../firebase/FirebaseCore';
 import Firebase from '../../../firebase/Firebase';
 import styles from './commentCreator.module.css';
-import { Comment, Post } from '../../postCreator/PostCreator';
+import { Post } from '../../../types/Post';
+import { Comment } from '../../../types/Comment';
 import { uuidv4 } from '@firebase/util';
 
 export type Props = {

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import styles from './postedit.module.css'
-import { Post as PostType } from '../postCreator/PostCreator';
+import { Post as PostType} from '../../../types/Post'
 import { useNavigate, useParams } from 'react-router-dom';
-import FirebaseCore from '../../firebase/FirebaseCore';
-import Firebase from '../../firebase/Firebase';
+import FirebaseCore from '../../../firebase/FirebaseCore';
+import Firebase from '../../../firebase/Firebase';
 
 export default function PostEdit() {
     const [post, setPost] = useState<PostType>(

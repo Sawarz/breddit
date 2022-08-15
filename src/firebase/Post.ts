@@ -1,6 +1,6 @@
 import { collection, getDocs, deleteDoc } from 'firebase/firestore';
 import { doc, setDoc, getDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore"; 
-import { Post } from '../components/postCreator/PostCreator';
+import { Post } from '../types/Post';
 import FirebaseCore from './FirebaseCore';
 import community from './Community'
 import misc from './Misc'

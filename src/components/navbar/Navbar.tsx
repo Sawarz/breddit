@@ -6,6 +6,8 @@ import Firebase from '../../firebase/Firebase'
 import FirebaseCore from '../../firebase/FirebaseCore'
 import { onAuthStateChanged } from 'firebase/auth'
 import { User } from '../../types/User'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   loggedIn: boolean,
@@ -34,12 +36,16 @@ export default function Navbar({loggedIn, userID}: Props) {
 
   return (
       <div className={styles.navbar}>
-          <Logo />
-          <div className={styles.username}>{user?.username}</div>
-          {loggedIn ? <button onClick={()=>{
+      <Logo />
+      {loggedIn ?
+        <>
+      <div className={styles.username}>{user?.username}</div>
+      <Link to="/profile"><FontAwesomeIcon icon={faCircleUser} size={"lg"} className={styles.profileLink}></FontAwesomeIcon></Link>
+      <button onClick={()=>{
             FirebaseCore.auth.signOut();
             window.location.reload();
-          }} className={styles.loginLink}>Log out!</button> : <Link to="/login" className={styles.loginLink}>Log in!</Link>}
+      }} className={styles.loginLink}>Log out!</button></> :
+        <Link to="/login" className={styles.loginLink}>Log in!</Link>}
     </div>
   )
 }

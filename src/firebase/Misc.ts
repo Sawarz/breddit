@@ -1,6 +1,6 @@
 import { doc, getDoc } from "firebase/firestore"; 
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { Post } from '../components/postCreator/PostCreator';
+import { Post } from "../types/Post";
 import FirebaseCore from './FirebaseCore';
 
 let storage = FirebaseCore.storage;

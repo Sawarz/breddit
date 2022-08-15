@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import styles from './feed.module.css';
 import { Link } from 'react-router-dom';
 import Firebase from '../../firebase/Firebase';
-import { Post } from '../postCreator/PostCreator';
+import { Post } from '../../types/Post';
 import { Community } from '../board/Board'
 
 type Props = {

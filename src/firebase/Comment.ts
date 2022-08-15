@@ -1,6 +1,7 @@
 import { collection, getDocs } from 'firebase/firestore';
 import { doc, setDoc } from "firebase/firestore"; 
-import { Comment, Post } from '../components/postCreator/PostCreator';
+import { Comment } from '../types/Comment';
+import { Post } from '../types/Post';
 import FirebaseCore from './FirebaseCore';
 
 let db = FirebaseCore.db;
