@@ -145,7 +145,7 @@ export default function Post() {
                         }
                     }
                 }}
-                      className={styles.arrow} style={postLiked ? { backgroundColor: "lightgreen" } : {}}><img width="30px" src={happyToastImg}></img></button> 
+                      className={styles.arrow} style={postLiked ? { backgroundColor: "lightgreen" } : {}}><img width="50px" src={happyToastImg}></img></button> 
             : null}
             <div className={styles.likes}>{post.likes}</div>
             {FirebaseCore.auth.currentUser ? 
@@ -175,7 +175,7 @@ export default function Post() {
                         }
                     }
                 }}
-                className={styles.arrow} style={(postLiked === false) ? {backgroundColor: "rgb(255, 107, 107)"} : {}}><img width="30px" src={sadToastImg}></img></button> 
+                className={styles.arrow} style={(postLiked === false) ? {backgroundColor: "rgb(255, 107, 107)"} : {}}><img width="50px" src={sadToastImg}></img></button> 
             : null}
         </div>
     </div>

@@ -41,6 +41,10 @@
     margin-right: 100px;
 }
 
+.text{
+    margin-right: 100px;
+}
+
 .addCommentButton{
     font-size: 1.2rem;
     font-weight: 600;
@@ -54,12 +58,13 @@
     margin-left: auto;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
 }
 
 .arrow{
-    height: 30px;
-    width: 30px;
+    height: 50px;
+    width: 50px;
     background-color: transparent;
 }
 
