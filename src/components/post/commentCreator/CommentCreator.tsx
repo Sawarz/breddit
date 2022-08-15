@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import FirebaseCore from '../../../firebase/FirebaseCore';
 import Firebase from '../../../firebase/Firebase';
 import styles from './commentCreator.module.css';
 import { Comment, Post } from '../../postCreator/PostCreator';
@@ -11,7 +12,7 @@ export type Props = {
 
 export default function CommentCreator({post, setCommentCreation}: Props) {
     const [comment, setComment] = useState<Comment>({
-        user: Firebase.auth.currentUser?.uid,
+        user: FirebaseCore.auth.currentUser?.uid,
         text: undefined,
         likes: 0,
         uid: uuidv4()
@@ -25,7 +26,7 @@ export default function CommentCreator({post, setCommentCreation}: Props) {
             setCommentCreation(false);
         }}>X</button>
         <button className={styles.submitButton} onClick={()=>{
-            Firebase.addComment(post, comment)
+            Firebase.comment.add(post, comment)
             setCommentCreation(false);
         }}>Submit</button>
     </div>

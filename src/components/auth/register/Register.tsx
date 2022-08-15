@@ -3,7 +3,7 @@ import styles from './register.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
-import Firebase from '../../../firebase/Firebase';
+import FirebaseCore from '../../../firebase/FirebaseCore';
 
 
 export default function Register() {
@@ -12,7 +12,7 @@ export default function Register() {
   const [username, setUsername] = useState<string | undefined>();
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   
-  const db = Firebase.db;
+  const db = FirebaseCore.db;
   const auth = getAuth();
   const navigate = useNavigate();
 

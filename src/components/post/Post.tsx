@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import styles from './post.module.css'
 import Firebase from '../../firebase/Firebase'
+import FirebaseCore from '../../firebase/FirebaseCore'
 import { Post as PostType, Comment as CommentType } from '../postCreator/PostCreator'
 import CommentCreator from './commentCreator/CommentCreator'
 import Comment from './comment/Comment'
@@ -34,9 +35,9 @@ export default function Post() {
         if (params.postID !== undefined) {
             let postFromDB = await Firebase.post.get(params.postID) as PostType;
             setPost(postFromDB);
-            if (postFromDB.likedBy?.some((likingID) => likingID === Firebase.auth.currentUser?.uid))
+            if (postFromDB.likedBy?.some((likingID) => likingID === FirebaseCore.auth.currentUser?.uid))
                 setPostLiked(true);
-            else if (postFromDB.dislikedBy?.some((likingID) => likingID === Firebase.auth.currentUser?.uid))
+            else if (postFromDB.dislikedBy?.some((likingID) => likingID === FirebaseCore.auth.currentUser?.uid))
                 setPostLiked(false);
         } 
     }
@@ -56,7 +57,7 @@ export default function Post() {
 
     async function getCommentsData(){
         if (params.postID !== undefined) {
-            let commentsFromDB = await Firebase.getComments(params.postID) as CommentType[];
+            let commentsFromDB = await Firebase.comment.get(params.postID) as CommentType[];
             setComments(commentsFromDB);
         } 
     }
@@ -82,7 +83,7 @@ export default function Post() {
       <div className={styles.post}>
           <div className={styles.postInfo}>
             <div>b/{post.community}</div>
-            {Firebase.auth.currentUser?.uid === post.user ?
+            {FirebaseCore.auth.currentUser?.uid === post.user ?
             <button className={styles.editButton} onClick={()=>{
                 navigate(`edit`);
             }}>Edit</button>
@@ -107,7 +108,7 @@ export default function Post() {
           }
           </>
           <>
-            {Firebase.auth.currentUser ?
+            {FirebaseCore.auth.currentUser ?
                 <button className={styles.addCommentButton} onClick={() => {
                 setCommentCreation(true);
                 }}>Add a comment</button> : null}
@@ -117,29 +118,29 @@ export default function Post() {
             }) : null}
           </>
           <div className={styles.likesInterface}>
-            {Firebase.auth.currentUser ? 
+            {FirebaseCore.auth.currentUser ? 
                 <button
                 onClick={() => {
-                    if (Firebase.auth.currentUser === undefined)
+                    if (FirebaseCore.auth.currentUser === undefined)
                         navigate("/login");
-                    else if (post.id !== undefined && post.likes !== undefined && Firebase.auth.currentUser) {
+                    else if (post.id !== undefined && post.likes !== undefined && FirebaseCore.auth.currentUser) {
                         if (postLiked === undefined) {
                             let newLikes = post.likes + 1;
                             setPost({ ...post, likes: newLikes });
-                            Firebase.like.add(post.id, Firebase.auth.currentUser?.uid);
+                            Firebase.like.add(post.id, FirebaseCore.auth.currentUser?.uid);
                             setPostLiked(true);
                         }
                         else if (postLiked === true) {
                             let newLikes = post.likes - 1;
                             setPost({ ...post, likes: newLikes });
-                            Firebase.like.clear(post.id, Firebase.auth.currentUser?.uid, postLiked);
+                            Firebase.like.clear(post.id, FirebaseCore.auth.currentUser?.uid, postLiked);
                             setPostLiked(undefined);
                         }
                         else if (postLiked === false) {
                             let newLikes = post.likes + 2;
                             setPost({ ...post, likes: newLikes });
-                            Firebase.like.clear(post.id, Firebase.auth.currentUser?.uid, postLiked);
-                            Firebase.like.add(post.id, Firebase.auth.currentUser?.uid);
+                            Firebase.like.clear(post.id, FirebaseCore.auth.currentUser?.uid, postLiked);
+                            Firebase.like.add(post.id, FirebaseCore.auth.currentUser?.uid);
                             setPostLiked(true);
                         }
                     }
@@ -147,29 +148,29 @@ export default function Post() {
                 className={styles.arrow} style={postLiked ? {backgroundColor: "lightgreen"} : {}}><FontAwesomeIcon icon={faArrowUp} /></button> 
             : null}
             <div className={styles.likes}>{post.likes}</div>
-            {Firebase.auth.currentUser ? 
+            {FirebaseCore.auth.currentUser ? 
                 <button
                 onClick={() => {
-                    if (Firebase.auth.currentUser === undefined)
+                    if (FirebaseCore.auth.currentUser === undefined)
                         navigate("/login");
-                    else if (post.id !== undefined && post.likes !== undefined && Firebase.auth.currentUser) {
+                    else if (post.id !== undefined && post.likes !== undefined && FirebaseCore.auth.currentUser) {
                         if (postLiked === undefined) {
                             let newLikes = post.likes - 1;
                             setPost({ ...post, likes: newLikes });
-                            Firebase.like.subtract(post.id, Firebase.auth.currentUser?.uid);
+                            Firebase.like.subtract(post.id, FirebaseCore.auth.currentUser?.uid);
                             setPostLiked(false);
                         }
                         else if (postLiked === false) {
                             let newLikes = post.likes + 1;
                             setPost({ ...post, likes: newLikes });
-                            Firebase.like.clear(post.id, Firebase.auth.currentUser?.uid, postLiked);
+                            Firebase.like.clear(post.id, FirebaseCore.auth.currentUser?.uid, postLiked);
                             setPostLiked(undefined);
                         }
                         else if (postLiked === true) {
                             let newLikes = post.likes - 2;
                             setPost({ ...post, likes: newLikes });
-                            Firebase.like.clear(post.id, Firebase.auth.currentUser?.uid, postLiked);
-                            Firebase.like.subtract(post.id, Firebase.auth.currentUser?.uid);
+                            Firebase.like.clear(post.id, FirebaseCore.auth.currentUser?.uid, postLiked);
+                            Firebase.like.subtract(post.id, FirebaseCore.auth.currentUser?.uid);
                             setPostLiked(false);
                         }
                     }

@@ -8,7 +8,7 @@ import PostEdit from "./components/postEdit/PostEdit";
 import Post from "./components/post/Post";
 import Register from "./components/auth/register/Register";
 import Login from "./components/auth/login/Login";
-import Firebase from "./firebase/Firebase";
+import FirebaseCore from "./firebase/FirebaseCore";
 import Board from "./components/board/Board";
 import Community from "./components/community/Community";
 
@@ -17,7 +17,7 @@ function App() {
   const [userID, setUserID] = useState<string | undefined>();
 
   useEffect(() => {
-    onAuthStateChanged(Firebase.auth, (user) => {
+    onAuthStateChanged(FirebaseCore.auth, (user) => {
       if(user){
         setLoggedIn(true);
         setUserID(user?.uid);

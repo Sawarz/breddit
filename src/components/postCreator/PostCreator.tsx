@@ -7,6 +7,7 @@ import Text from './tabs/Text';
 import Image from './tabs/Image';
 import Link from './tabs/Link';
 import Poll from './tabs/Poll';
+import FirebaseCore from '../../firebase/FirebaseCore';
 import Firebase from '../../firebase/Firebase';
 import { uuidv4 } from '@firebase/util';
 import { useNavigate } from 'react-router-dom';
@@ -50,7 +51,7 @@ export default function PostCreator() {
 
   const navigate = useNavigate();
 
-  if(Firebase.auth.currentUser?.uid == undefined)
+  if(FirebaseCore.auth.currentUser?.uid == undefined)
         navigate("/");
 
   useEffect(() => {
@@ -64,7 +65,7 @@ export default function PostCreator() {
     } 
     fetchCommunitiesFromDB();
 
-    setPost({...post, user: Firebase.auth.currentUser?.uid})
+    setPost({...post, user: FirebaseCore.auth.currentUser?.uid})
   }, [])
   
 

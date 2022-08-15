@@ -3,6 +3,7 @@ import styles from './styles.module.css'
 import Logo from '../multiple-use/logo/Logo'
 import { Link, useNavigate } from 'react-router-dom'
 import Firebase from '../../firebase/Firebase'
+import FirebaseCore from '../../firebase/FirebaseCore'
 import { onAuthStateChanged } from 'firebase/auth'
 import { User } from '../../types/User'
 
@@ -24,7 +25,7 @@ export default function Navbar({loggedIn, userID}: Props) {
     }
     fetchUsername();
 
-    onAuthStateChanged(Firebase.auth, (user) => {
+    onAuthStateChanged(FirebaseCore.auth, (user) => {
       if(!user)
         setUser(undefined);
     });
@@ -36,7 +37,7 @@ export default function Navbar({loggedIn, userID}: Props) {
           <Logo />
           <div className={styles.username}>{user?.username}</div>
           {loggedIn ? <button onClick={()=>{
-            Firebase.auth.signOut();
+            FirebaseCore.auth.signOut();
             window.location.reload();
           }} className={styles.loginLink}>Log out!</button> : <Link to="/login" className={styles.loginLink}>Log in!</Link>}
     </div>

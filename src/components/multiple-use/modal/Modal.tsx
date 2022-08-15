@@ -40,7 +40,7 @@ export default function Modal({ toggleModal }: Props) {
         <div className={styles.buttons}>
           {communityCreated ? null : <button className={styles.createButton} style={validation ? { backgroundColor: "rgba(27, 197, 27, 0.726)" } : { backgroundColor: "gray" }} onClick={(e) => {
             if (validation) {
-              Firebase.community.createNew(inputValue);
+              Firebase.community.create(inputValue);
               setCommunityCreated(true);
               setTimeout(toggleModal, 3000);
             }

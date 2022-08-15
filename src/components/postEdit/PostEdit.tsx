@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import styles from './postedit.module.css'
 import { Post as PostType } from '../postCreator/PostCreator';
 import { useNavigate, useParams } from 'react-router-dom';
+import FirebaseCore from '../../firebase/FirebaseCore';
 import Firebase from '../../firebase/Firebase';
 
 export default function PostEdit() {
@@ -18,7 +19,7 @@ export default function PostEdit() {
 
     const params = useParams();
     const navigate = useNavigate();
-    if(Firebase.auth.currentUser?.uid !== post.user)
+    if(FirebaseCore.auth.currentUser?.uid !== post.user)
         navigate("/");
 
     async function getPostData() {
