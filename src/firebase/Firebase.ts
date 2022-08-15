@@ -121,11 +121,11 @@ async function createNewCommunity(name: string) {
   const result = await setDoc(doc(db, "communities", communityID), {id: communityID, name: name, numOfMembers: 0, posts: []});
 }
 
-async function getUsername(userID: string) {
+async function getUser(userID: string) {
   const docRef = doc(db, "users", userID);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
-    return docSnap.data().username;
+    return docSnap.data();
   }
 }
 
@@ -185,7 +185,7 @@ const Firebase = {
   community: community,
   getComments: getComments,
   getImage: getImage,
-  getUsername: getUsername,
+  getUser: getUser,
   addComment: addComment
 }
 
