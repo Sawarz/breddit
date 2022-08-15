@@ -6,9 +6,9 @@ import FirebaseCore from '../../firebase/FirebaseCore'
 import { Post as PostType, Comment as CommentType } from '../postCreator/PostCreator'
 import CommentCreator from './commentCreator/CommentCreator'
 import Comment from './comment/Comment'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons'
 import { User } from '../../types/User'
+import happyToastImg from '../../assets/happytoast.png'
+import sadToastImg from '../../assets/sadtoast.png'
 
 export default function Post() {
     const [post, setPost] = useState<PostType>(
@@ -145,7 +145,7 @@ export default function Post() {
                         }
                     }
                 }}
-                className={styles.arrow} style={postLiked ? {backgroundColor: "lightgreen"} : {}}><FontAwesomeIcon icon={faArrowUp} /></button> 
+                      className={styles.arrow} style={postLiked ? { backgroundColor: "lightgreen" } : {}}><img width="30px" src={happyToastImg}></img></button> 
             : null}
             <div className={styles.likes}>{post.likes}</div>
             {FirebaseCore.auth.currentUser ? 
@@ -175,7 +175,7 @@ export default function Post() {
                         }
                     }
                 }}
-                className={styles.arrow} style={(postLiked === false) ? {backgroundColor: "rgb(255, 107, 107)"} : {}}><FontAwesomeIcon icon={faArrowDown} /></button> 
+                className={styles.arrow} style={(postLiked === false) ? {backgroundColor: "rgb(255, 107, 107)"} : {}}><img width="30px" src={sadToastImg}></img></button> 
             : null}
         </div>
     </div>
