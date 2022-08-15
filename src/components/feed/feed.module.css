@@ -89,6 +89,7 @@
 }
 
 .loading{
+    padding: 15px;
     background-color: white;
     align-items: center;
     border-radius: 5px;
