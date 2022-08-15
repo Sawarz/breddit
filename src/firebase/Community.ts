@@ -1,4 +1,4 @@
-import { arrayUnion, collection, getDocs } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, collection, getDocs, increment } from 'firebase/firestore';
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore"; 
 import { uuidv4 } from '@firebase/util';
 import FirebaseCore from './FirebaseCore';
@@ -26,17 +26,33 @@ async function get(communityID: string) {
 }
 
 async function join(communityID: string, userID: string) {
-    const docRef = doc(db, "users", userID);
-    const result = await updateDoc(docRef, {
+    const userDocRef = doc(db, "users", userID);
+    const communityDocRef = doc(db, "communities", communityID);
+    const result = await updateDoc(userDocRef, {
         communitiesJoined: arrayUnion(communityID)
     })
+    const result2 = await updateDoc(communityDocRef, {
+        numOfMembers: increment(1)
+    }) 
+}
+
+async function leave(communityID: string, userID: string) {
+    const userDocRef = doc(db, "users", userID);
+    const communityDocRef = doc(db, "communities", communityID);
+    const result = await updateDoc(userDocRef, {
+        communitiesJoined: arrayRemove(communityID)
+    })
+    const result2 = await updateDoc(communityDocRef, {
+        numOfMembers: increment(-1)
+    }) 
 }
 
 const community = {
     get: get,
     getAll: getAll,
     create: create,
-    join: join
+    join: join,
+    leave: leave
 }
   
 export default community;
