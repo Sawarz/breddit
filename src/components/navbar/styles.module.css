@@ -12,8 +12,7 @@
     padding: 0px 20px 0px 20px;
 }
 
-.loginLink{
-    margin-left: auto;
+.loginLink, .logoutLink{
     cursor: pointer;
     appearance: none;
     text-decoration: none;
@@ -33,6 +32,10 @@
     line-height: normal;
     text-indent: 0;
     display: block;
+}
+
+.loginLink{
+    margin-left: auto;
 }
 
 .username{

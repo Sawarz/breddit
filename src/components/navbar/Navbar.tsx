@@ -44,7 +44,7 @@ export default function Navbar({loggedIn, userID}: Props) {
       <button onClick={()=>{
             FirebaseCore.auth.signOut();
             window.location.reload();
-      }} className={styles.loginLink}>Log out!</button></> :
+      }} className={styles.logoutLink}>Log out!</button></> :
         <Link to="/login" className={styles.loginLink}>Log in!</Link>}
     </div>
   )
