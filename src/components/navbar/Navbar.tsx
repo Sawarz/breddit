@@ -21,7 +21,7 @@ export default function Navbar({loggedIn, userID}: Props) {
   useEffect(() => {
     async function fetchUsername(){
       if(userID !== undefined){
-        let fetchedUser = await Firebase.getUser(userID) as User;
+        let fetchedUser = await Firebase.user.get(userID) as User;
         setUser(fetchedUser);
       }
     }

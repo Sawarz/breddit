@@ -30,7 +30,7 @@ export default function Community({ loggedIn }: Props) {
   async function getUserData() {
     let user: User;
     if (FirebaseCore.auth.currentUser?.uid && community) {
-      user = await Firebase.getUser(FirebaseCore.auth.currentUser.uid) as User;
+      user = await Firebase.user.get(FirebaseCore.auth.currentUser.uid) as User;
       setUser(user);
       if (user.communitiesJoined.find(communityJoined => communityJoined === community.id)) {
         setJoined(true);

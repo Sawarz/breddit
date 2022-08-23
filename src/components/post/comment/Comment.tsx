@@ -14,7 +14,7 @@ export default function Comment({comment}: Props) {
     async function getUsername(){
         let fetchedUser: User;
         if(comment.user !== undefined){
-            fetchedUser = await Firebase.getUser(comment.user) as User;
+            fetchedUser = await Firebase.user.get(comment.user) as User;
             setUser(fetchedUser);
         }   
     }

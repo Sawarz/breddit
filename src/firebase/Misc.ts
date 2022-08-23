@@ -1,10 +1,8 @@
-import { doc, getDoc } from "firebase/firestore"; 
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Post } from "../types/Post";
 import FirebaseCore from './FirebaseCore';
 
 let storage = FirebaseCore.storage;
-let db = FirebaseCore.db;
 
 async function storeImage(image: File, post: Post) {
     const folderRef = ref(storage, `postsImages/${post.id}`)
@@ -24,18 +22,10 @@ async function storeImage(image: File, post: Post) {
     return url;
   }
   
-  async function getUser(userID: string) {
-    const docRef = doc(db, "users", userID);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      return docSnap.data();
-    }
-}
   
 const misc = {
     storeImage: storeImage,
     getImage: getImage,
-    getUser: getUser
 }
 
 export default misc;

@@ -51,7 +51,7 @@ export default function Post() {
     async function getUsername(){
         let fetchedUser: User;
         if(post.user !== undefined){
-            fetchedUser = await Firebase.getUser(post.user) as User;
+            fetchedUser = await Firebase.user.get(post.user) as User;
             setAuthor(fetchedUser);
         }   
     }
