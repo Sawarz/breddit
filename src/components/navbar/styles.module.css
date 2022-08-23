@@ -13,6 +13,7 @@
 }
 
 .loginLink{
+    margin-left: auto;
     cursor: pointer;
     appearance: none;
     text-decoration: none;
