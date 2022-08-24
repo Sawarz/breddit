@@ -1,0 +1,27 @@
+.tab{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.subInterface{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.confirmButton{
+    padding: 5px;
+    background-color: rgba(62, 218, 62, 0.644);
+    font-weight: 600;
+}
+
+.confirmButton:active{
+    transform: translateY(4px);
+}
+
+.errorMessage, .confirmMessage{
+    padding: 10px;
+    border: 1px solid black;
+    background-color: white;
+}
