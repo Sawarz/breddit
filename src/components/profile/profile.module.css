@@ -1,5 +1,4 @@
 .profile{
-    position: relative;
     width: 50vw;
     padding: 30px;
     background-color: white;
@@ -19,6 +18,8 @@
 }
 
 .option{
+    text-decoration: none;
+    color: black;
     cursor: pointer;
     padding: 10px 15px;
     background-color: transparent;
