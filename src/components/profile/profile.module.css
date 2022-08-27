@@ -1,5 +1,5 @@
 .profile{
-    width: 50vw;
+    min-width: 50vw;
     padding: 30px;
     background-color: white;
     display: flex;
