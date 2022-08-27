@@ -1,0 +1,7 @@
+.main{
+    position: fixed;
+    top: 150px;
+    right: 100px;
+    padding: 10px;
+    background-color: rgb(116, 255, 158);
+}
