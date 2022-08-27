@@ -21,7 +21,18 @@
 }
 
 .errorMessage, .confirmMessage{
+    position: fixed;
+    top: 150px;
+    right: 100px;
     padding: 10px;
-    border: 1px solid black;
     background-color: white;
+}
+
+.errorMessage{
+    background-color: rgb(255, 117, 117);
+}
+
+.toggleVisibilityButton{
+    cursor: pointer;
+    background-color: transparent;
 }
