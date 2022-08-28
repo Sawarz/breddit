@@ -10,6 +10,7 @@ import Board from "./components/board/Board";
 import Community from "./components/community/Community";
 import Profile from "./components/profile/Profile";
 import Options from './components/profile/options/Options'
+import Friends from "./components/friends/Friends";
 import { Post, PostEdit, PostCreator } from './components/post/PostComponents'
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
           </Route>
         </Routes>
       </div>
+      <Friends />
     </HashRouter>
   );
 }
