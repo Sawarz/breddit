@@ -87,8 +87,8 @@ export default function ChangeData() {
           }}>Confirm</button>
         </div>
       </div>
-      {errorMessage ? <ErrorMessage message={errorMessage} setErrorMessage={setErrorMessage} /> : null}
-      {confirmMessage ? <ConfirmMessage message={confirmMessage} setConfirmMessage={setConfirmMessage} /> : null}
+      {errorMessage ? <ErrorMessage message={errorMessage} /> : null}
+      {confirmMessage ? <ConfirmMessage message={confirmMessage} /> : null}
     </div>
   )
 }
