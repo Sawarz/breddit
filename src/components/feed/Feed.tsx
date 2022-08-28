@@ -20,11 +20,9 @@ export default function Feed({ loggedIn, community }:Props) {
         let postsFromDB = (await Firebase.post.getAll()) as Array<Post>;
         if (community) {
             postsFromDB = postsFromDB.filter(post => community.posts.some(communityPostID => communityPostID === post.id) === true)
-            console.log(postsFromDB)
             setPosts(postsFromDB);
         }
         else {
-            console.log(postsFromDB);
             setPosts(postsFromDB);
         }
 		let newImages: { postID: undefined | string; url: string }[] = [];
