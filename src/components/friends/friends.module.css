@@ -1,0 +1,63 @@
+.main{
+    position: absolute;
+    bottom: 0;
+    right: 100px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.title{
+    font-weight: 600;
+}
+
+.friends, .chat, .openFriendsButton{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 10px;
+    min-height: 300px;
+    min-width: 300px;
+    width: 100px;
+    background-color: white;
+    border-radius: 15px 15px 0 0;
+    border: 1px solid gray;
+    border-bottom: none;
+    gap: 10px;
+}
+
+.divider{
+    height: 1px;
+    width: 100%;
+    background-color: black;
+}
+
+.friendButton{
+    padding: 5px;
+    cursor: pointer;
+    background-color: transparent;
+    text-align: left;
+}
+
+.friendButton:hover{
+    background-color: rgba(170, 170, 170, 0.342);
+}
+
+.friendName{
+    font-weight: 600;
+}
+
+.closeButton{
+    position: absolute;
+    background-color: red;
+    padding: 5px 10px;
+    right: 10px;
+    font-weight: 700;
+}
+
+.openFriendsButton{
+    font-size: 110%;
+    font-weight: 600;
+    min-height: 50px;
+}
